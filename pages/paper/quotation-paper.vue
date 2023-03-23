@@ -2,7 +2,7 @@
   <div
     style="display: flex; background-color: rgb(225, 225, 241); z-index: -111"
   >
-    <div class="page" v-if="go">
+    <div class="page" >
       <v-container>
         <v-row style="margin: 2px">
           <v-col>
