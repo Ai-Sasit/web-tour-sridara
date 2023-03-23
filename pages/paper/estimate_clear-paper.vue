@@ -25,6 +25,7 @@
                   <tr style="text-align: center">
                     <td colspan="2">
                       <b style="font-size: 14px">ใบเคลียร์ประมาณการเงินสดย่อย</b>
+                      <div>Estimate Clearing</div>
                     </td>
                   </tr>
                   <tr style="height: 20px; font-size: 12px">
@@ -56,36 +57,6 @@
                       <!-- {{ quo.contact_name }} -->
                     </td>
                   </tr>
-                  <!-- <tr style="height: 20px">
-                    <td><b>ที่อยู่: </b></td>
-                    <td>
-                      {{ quo.address }}
-                    </td>
-                  </tr>
-                  <tr style="height: 20px">
-                    <td>
-                      <b>ID TAX: </b>
-                    </td>
-                    <td>
-                      {{ quo.tax_id }}
-                    </td>
-                  </tr>
-                  <tr style="height: 20px">
-                    <td>
-                      <b>โทร: </b>
-                    </td>
-                    <td>
-                      {{ quo.customer_tel }}
-                    </td>
-                  </tr>
-                  <tr style="height: 20px">
-                    <td>
-                      <b>Email: </b>
-                    </td>
-                    <td>
-                      {{ quo.email }}
-                    </td>
-                  </tr> -->
                 </v-table></v-col>
               <v-col><v-table style="font-size: 12px">
                   <tr style="height: 20px">
@@ -100,118 +71,20 @@
                       <!-- {{ quo.sales_person }} -->
                     </td>
                   </tr>
-                  <!-- <tr style="height: 20px">
-                    <td><b>ฝ่าย:</b></td>
-                    <td style="text-align: right">
-                      {{ quo.sale_department }}
-                    </td>
-                  </tr>
-                  <tr style="height: 20px">
-                    <td><b>ยืนยันราคาภายใน:</b></td>
-                    <td style="text-align: right">
-                      {{ quo.confirm_price_within }}
-                    </td>
-                  </tr>
-                  <tr style="height: 20px">
-                    <td><b>วันส่งของ:</b></td>
-                    <td style="text-align: right">
-                      {{ quo.delivery_date }}
-                    </td>
-                  </tr> -->
-                </v-table></v-col>
+                </v-table>
+              </v-col>
             </v-row>
           </v-col>
         </v-row>
-
-        <!-- <v-row>
-          <v-col>
-            <v-row>
-              <v-col>
-                <img src="https://www.adt.or.th/image/ADT1%20-%201108%20-%200263.jpg" class="w-141px h-47px"
-                  alt="sridara Logo" />
-                <v-sheet style="text-align: center; font-size: 12px">
-                  <div>บริษัท ศรีดาราทัวร์ จำกัด (สำนักงานใหญ่)</div>
-                  <div>
-                    123 ถนนชยางกูร หมู่ 19 ตำบลบุ่ง อำเภอเมืองอำนาจเจริญ
-                    จังหวัดอำนาจเจริญ 37000
-                  </div>
-                  <div>เลขประจำตัวผู้เสียภาษี: 0375552000037</div>
-                  โทร.082-3656514
-                  <div><a>www.facebook.com/sridaratourfanpage</a></div>
-                </v-sheet>
-              </v-col>
-            </v-row>
-            <br>
-            <center>ใบเคลียร์ประมาณการเงินสดย่อย</center>
-            <table class="w-full text-sm text-left">
-              <tr>
-                <td colspan="5" class="pb-1 pt-2 px-3">
-                  <h3>
-
-                  </h3>
-                </td>
-                <td colspan="7" class="pb-1 pt-2 px-3">
-
-                </td>
-                <td colspan="3" class="pb-1 pt-2 px-3">
-                  เลขที่ :
-                </td>
-              </tr>
-              <tr>
-                <td colspan="7" class="py-1 px-3">
-                  ผู้ขอเคียร์
-                </td>
-                <td colspan="5" class="pb-1 pt-2 px-3">
-                  <h3>
-
-                  </h3>
-                </td>
-                <td colspan="3" class="py-1 px-3">
-                  วันที่ :
-                </td>
-
-              </tr>
-
-              <tr>
-                <td colspan="5" class="py-1 px-3">
-                  อ้างอิงถึงเลขที่ใบเคียร์เงินทดลองจ่าย
-                </td>
-                <td colspan="5" class="py-1 px-3">
-                  <h3>
-                    ฝ่าย/แผนก :
-
-                  </h3>
-                </td>
-              </tr>
-
-              <tr>
-                <td colspan="5" class="py-1 px-3">
-                  <h3>
-
-
-                  </h3>
-                </td>
-                <td colspan="5" class="py-1 px-3">
-                  <h3>
-                    โครงการ :
-
-                  </h3>
-                </td>
-              </tr>
-            </table>
-          </v-col>
-
-
-        </v-row> -->
 
         <v-row style="padding: 1px; margin: auto; border-bottom: 1px solid black">
           <v-col style="padding: 1px; height: 400px">
             <v-table density="compact" height="auto">
               <thead style="font-weight: bold; font-size: 14px">
                 <tr style="
-                      border-top: 1px solid black;
-                      border-bottom: 1px solid black;
-                    ">
+                        border-top: 1px solid black;
+                        border-bottom: 1px solid black;
+                      ">
                   <td class="text-center" style="font-size: xx-small">ลำดับ</td>
                   <td class="text-center" style="font-size: xx-small">รายละเอียดค่าใช้จ่าย</td>
                   <td class="text-center" style="font-size: xx-small">เลขที่และวันที่ใบเสร็จ</td>
