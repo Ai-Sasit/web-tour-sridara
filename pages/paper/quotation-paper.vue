@@ -2,123 +2,125 @@
   <div
     style="display: flex; background-color: rgb(225, 225, 241); z-index: -111"
   >
-    <div class="page" v-if="go">
+    <div class="page">
       <v-container>
-        <v-row>
-          <v-col cols="8">
-            <v-row>
-              <v-col>
-                <img
-                  src="https://www.adt.or.th/image/ADT1%20-%201108%20-%200263.jpg"
-                  class="w-141px h-47px"
-                  alt="sridara Logo"
-                />
-                <v-sheet style="text-align: left; font-size: 12px">
+        <v-row style="margin: 2px">
+          <v-col>
+            <v-row
+              ><img
+                src="https://www.adt.or.th/image/ADT1%20-%201108%20-%200263.jpg"
+                class="w-141px h-47px"
+                alt="sridara Logo"
+            /></v-row>
+            <v-row style="border-bottom: 1px solid lightgray">
+              <v-col cols="8"
+                ><v-sheet style="text-align: left; font-size: 12px">
                   <div>บริษัท ศรีดาราทัวร์ จำกัด (สำนักงานใหญ่)</div>
                   <div>
                     123 ถนนชยางกูร หมู่ 19 ตำบลบุ่ง อำเภอเมืองอำนาจเจริญ
                     จังหวัดอำนาจเจริญ 37000
                   </div>
-                  <div>เลขประจำตัวผู้เสียภาษี: 0375552000037</div>
-                  โทร.082-3656514
-                  <div><a>www.facebook.com/sridaratourfanpage</a></div>
-                </v-sheet>
-              </v-col>
-            </v-row>
+                  <div>
+                    เลขประจำตัวผู้เสียภาษี: 0375552000037 | โทร.082-3656514
+                  </div>
 
-            <v-row style="font-size: 12px; padding-left: 4px; margin: auto">
-              <v-col style="padding: 0" cols="10">
+                  <div><a>www.facebook.com/sridaratourfanpage</a></div>
+                </v-sheet></v-col
+              >
+              <v-col>
                 <v-table>
-                  <tr style="height: 10px">
-                    <td colspan="2" style="font-weight: bold">&nbsp;</td>
-                  </tr>
-                  <tr style="height: 20px">
+                  <tr style="text-align: center">
                     <td colspan="2">
-                      <b>ชื่อลูกค้า: </b>
+                      <div style="font-size: 14px">
+                        <b>ใบเสนอราคา/ยืนยันการสั่งซื้อ</b>
+                      </div>
+                      <div>Quatation</div>
                     </td>
-                    <td colspan="2">{{ quo.customer_name }}</td>
-                  </tr>
-                  <tr style="height: 20px">
-                    <td colspan="2">
-                      <b>ชื่อผู้ติดต่อ: </b>
-                    </td>
-                    <td colspan="2">{{ quo.contact_name }}</td>
-                  </tr>
-                  <tr style="height: 20px">
-                    <td colspan="2"><b>ที่อยู่: </b></td>
-                    <td colspan="2">{{ quo.address }}</td>
-                  </tr>
-                  <tr style="height: 20px">
-                    <td colspan="2">
-                      <b>ID TAX: </b>
-                    </td>
-                    <td colspan="2">{{ quo.tax_id }}</td>
-                  </tr>
-                  <tr style="height: 20px">
-                    <td colspan="2">
-                      <b>โทร: </b>
-                    </td>
-                    <td colspan="2">{{ quo.customer_tel }}</td>
-                  </tr>
-                  <tr style="height: 20px">
-                    <td colspan="2">
-                      <b>Email: </b>
-                    </td>
-                    <td colspan="2">{{ quo.email }}</td>
-                  </tr>
-                  <tr style="height: 10px">
-                    <td colspan="2" style="font-weight: bold">&nbsp;</td>
                   </tr>
                 </v-table>
               </v-col>
             </v-row>
-          </v-col>
-
-          <v-col>
-            <v-table style="font-size: 12px">
-              <tr style="text-align: center">
-                <td colspan="2" style="border-bottom: 1px solid lightgray">
-                  <div style="font-size: 14px">
-                    <b>ใบเสนอราคา/ยืนยันการสั่งซื้อ</b>
-                  </div>
-                  <div>Quatation</div>
-                </td>
-              </tr>
-              <tr>
-                <td><b>เลขที่:</b></td>
-                <td style="text-align: right">{{ quo.no }}</td>
-              </tr>
-              <tr>
-                <td><b>วันที่:</b></td>
-                <td style="text-align: right">{{ quo.date }}</td>
-              </tr>
-              <tr style="border-top: 1px solid lightgray">
-                <td><b>รหัสลูกค้า:</b></td>
-                <td style="text-align: right">{{ quo.customer_code }}</td>
-              </tr>
-              <tr>
-                <td><b>ผู้เสนอขาย:</b></td>
-                <td style="text-align: right">{{ quo.sales_person }}</td>
-              </tr>
-              <tr>
-                <td><b>ฝ่าย:</b></td>
-                <td style="text-align: right">{{ quo.sale_department }}</td>
-              </tr>
-              <tr style="border-top: 1px solid lightgray">
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td><b>ยืนยันราคาภายใน:</b></td>
-                <td style="text-align: right">
-                  {{ quo.confirm_price_within }}
-                </td>
-              </tr>
-              <tr style="border-top: 1px solid lightgray">
-                <td><b>วันส่งของ:</b></td>
-                <td style="text-align: right">{{ quo.delivery_date }}</td>
-              </tr>
-            </v-table>
+            <v-row style="font-size: 12px">
+              <v-col cols="8"></v-col>
+              <v-col>
+                <v-table>
+                  <tr style="height: 20px">
+                    <td><b>เลขที่:</b></td>
+                    <td style="text-align: right">{{ quo.no }}</td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td><b>วันที่:</b></td>
+                    <td style="text-align: right">{{ quo.date }}</td>
+                  </tr>
+                </v-table>
+              </v-col>
+            </v-row>
+            <v-row style="font-size: 12px">
+              <v-col cols="8"
+                ><v-table style="border-right: 1px solid lightgray">
+                  <tr style="height: 20px">
+                    <td style="width: 20%">
+                      <b>ชื่อลูกค้า: </b>
+                    </td>
+                    <td style="text-align: left">
+                      {{ quo.customer_name }}
+                    </td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td>
+                      <b>ชื่อผู้ติดต่อ: </b>
+                    </td>
+                    <td>{{ quo.contact_name }}</td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td><b>ที่อยู่: </b></td>
+                    <td>{{ quo.address }}</td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td>
+                      <b>ID TAX: </b>
+                    </td>
+                    <td>{{ quo.tax_id }}</td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td>
+                      <b>โทร: </b>
+                    </td>
+                    <td>{{ quo.customer_tel }}</td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td>
+                      <b>Email: </b>
+                    </td>
+                    <td>{{ quo.email }}</td>
+                  </tr>
+                </v-table></v-col
+              >
+              <v-col
+                ><v-table style="font-size: 12px">
+                  <tr style="height: 20px">
+                    <td style="width: 45%"><b>รหัสลูกค้า:</b></td>
+                    <td>{{ quo.customer_code }}</td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td><b>ผู้เสนอขาย:</b></td>
+                    <td>{{ quo.sales_person }}</td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td><b>ฝ่าย:</b></td>
+                    <td>{{ quo.sale_department }}</td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td><b>ยืนยันราคาภายใน:</b></td>
+                    <td>{{ quo.confirm_price_within }}</td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td><b>วันส่งของ:</b></td>
+                    <td>{{ quo.delivery_date }}</td>
+                  </tr>
+                </v-table></v-col
+              >
+            </v-row>
           </v-col>
         </v-row>
 
