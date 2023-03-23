@@ -1,10 +1,8 @@
 <template>
   <div
-    style="display: flex; background-color: rgb(225, 225, 241); z-index: -111"
-  >
+    style="display: flex; background-color: rgb(225, 225, 241); z-index: -111">
     <div class="page" v-if="onLoad">
       <v-container>
-
         <v-row style="margin: 2px">
           <v-col>
             <v-row
@@ -36,16 +34,18 @@
                         <b>ใบกำกับภาษี/ใบส่งของ</b>
                       </div>
                       <div>Tax Invoice/Delivery Order</div>
-                      <div style="font-size: 10px;">ต้นฉบับ/Original (เอกสารออกเป็นชุด)</div>
+                      <div style="font-size: 10px">
+                        ต้นฉบับ/Original (เอกสารออกเป็นชุด)
+                      </div>
                     </td>
                   </tr>
                   <tr style="height: 20px; font-size: 12px">
                     <td style="width: 50%"><b>เลขที่:</b></td>
-                    <td style="text-align: right;">{{ tax.no }}</td>
+                    <td style="text-align: right">{{ tax.no }}</td>
                   </tr>
                   <tr style="height: 20px; font-size: 12px">
                     <td><b>วันที่:</b></td>
-                    <td style="text-align: right;">{{ tax.date }}</td>
+                    <td style="text-align: right">{{ tax.date }}</td>
                   </tr>
                 </v-table>
               </v-col>
@@ -76,8 +76,7 @@
                       border-top: 1px solid lightgray;
                       border-bottom: 1px solid lightgray;
                       height: 30px;
-                    "
-                  >
+                    ">
                     <td colspan="2">
                       <input
                         type="checkbox"
@@ -91,8 +90,7 @@
                         id="vehicle3"
                         :checked="tax.branch == ''"
                         name="vehicle3"
-                        value="Boat"
-                      />
+                        value="Boat" />
                       <label for="vehicle3"> สำนักงานใหญ่</label>
                     </td>
                     <td colspan="2">
@@ -108,8 +106,7 @@
                         "
                         id="vehicle3"
                         name="vehicle3"
-                        value="Boat"
-                      />
+                        value="Boat" />
                       <label for="vehicle3"> สาขาที่: {{ tax.branch }}</label>
                     </td>
                   </tr>
@@ -119,23 +116,25 @@
                 ><v-table style="font-size: 12px">
                   <tr style="height: 20px">
                     <td style="width: 50%"><b>รหัสลูกค้า:</b></td>
-                    <td style="text-align: right;">{{ quo.customer_code }}</td>
+                    <td style="text-align: right">{{ quo.customer_code }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ผู้ขาย:</b></td>
-                    <td style="text-align: right;">{{ quo.sales_person }}</td>
+                    <td style="text-align: right">{{ quo.sales_person }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ฝ่าย:</b></td>
-                    <td style="text-align: right;">{{ quo.sale_department }}</td>
+                    <td style="text-align: right">{{ quo.sale_department }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ยืนยันราคาวันที่:</b></td>
-                    <td style="text-align: right;">{{ quo.confirm_price_within }}</td>
+                    <td style="text-align: right">
+                      {{ quo.confirm_price_within }}
+                    </td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>กำหนดชำระ:</b></td>
-                    <td style="text-align: right;">{{ tax.pay_date }}</td>
+                    <td style="text-align: right">{{ tax.pay_date }}</td>
                   </tr>
                 </v-table></v-col
               >
@@ -144,8 +143,7 @@
         </v-row>
 
         <v-row
-          style="padding: 1px; margin: auto; border-bottom: 1px solid black"
-        >
+          style="padding: 1px; margin: auto; border-bottom: 1px solid black">
           <v-col style="padding: 1px; height: 400px">
             <v-table density="compact" height="auto">
               <thead style="font-weight: bold; font-size: 14px">
@@ -153,8 +151,7 @@
                   style="
                     border-top: 1px solid black;
                     border-bottom: 1px solid black;
-                  "
-                >
+                  ">
                   <td class="text-center" style="font-size: xx-small">ลำดับ</td>
                   <td class="text-center" style="font-size: xx-small">
                     รหัสสินค้า
@@ -214,8 +211,7 @@
             padding-right: 4px;
             margin: auto;
             border-bottom: 1px solid black;
-          "
-        >
+          ">
           <v-col style="padding: 0" cols="9"
             ><v-table>
               <tr>
@@ -379,8 +375,7 @@
   <a-modal
     v-model:visible="dialog"
     width="65rem"
-    title="ฟอร์มแก้ไขใบกำกับภาษี/ใบส่งของ"
-  >
+    title="ฟอร์มแก้ไขใบกำกับภาษี/ใบส่งของ">
     <template #footer>
       <a-button key="back" @click="dialog = false">ยกเลิก</a-button>
       <a-button
@@ -402,8 +397,7 @@
           type="text"
           id="base-input"
           v-model="taxUpdate.tax_no"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
       </v-col>
       <v-col>
         <label
@@ -416,8 +410,7 @@
           style="z-index: 999"
           v-model:value="taxUpdate.tax_date"
           class="date-picker"
-          format="DD/MM/YYYY"
-        />
+          format="DD/MM/YYYY" />
       </v-col>
       <v-col>
         <label
@@ -430,8 +423,7 @@
           style="z-index: 999"
           v-model:value="taxUpdate.tax_pay_date"
           class="date-picker"
-          format="DD/MM/YYYY"
-        />
+          format="DD/MM/YYYY" />
       </v-col>
       <v-col>
         <label
@@ -443,8 +435,7 @@
           type="text"
           id="base-input"
           v-model="taxUpdate.tax_branch"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
       </v-col>
     </v-row>
   </a-modal>
@@ -457,6 +448,7 @@ import {
   read_all_data,
   update_data,
   ArabicNumberToText,
+  read_one_data,
 } from "~~/services/pyapi";
 import buddhistEra from "dayjs/plugin/buddhistEra";
 dayjs.extend(buddhistEra);
@@ -492,6 +484,7 @@ export default defineComponent({
         this.loadGenBill = true;
         const payload = {
           tour_id: this.tour_id,
+          quo_id: this.quo_id,
           no: this.taxUpdate.tax_no,
           date: this.taxUpdate.tax_date.format("DD/MM/BBBB"),
           pay_date: this.taxUpdate.tax_pay_date.format("DD/MM/BBBB"),
@@ -522,6 +515,7 @@ export default defineComponent({
   },
   data() {
     return {
+      quo_id: "",
       tour_id: "",
       avoid_tax: 0,
       dialog: false,
@@ -539,16 +533,16 @@ export default defineComponent({
     };
   },
   async mounted() {
-    this.tour_id = String(this.$route.query.tid);
+    this.quo_id = String(this.$route.query.qid);
     this.$message.loading({
       content: "กำลังโหลดข้อมูลใบกำกับภาษี และสร้างเป็นเอกสาร",
       key,
     });
-    const t = await read_all_data(`taxes?tour_id=${this.tour_id}`);
+    const t = await read_all_data(`taxes?tour_id=${this.quo_id}`);
     this.tax = t[0];
-    const q = await read_all_data(`quotations?tour_id=${this.tour_id}`);
-    this.quo = q[0];
-    const p = await read_all_data(`products?tid=${this.tour_id}`);
+    this.quo = await read_one_data(`quotation`, this.quo_id);
+    this.tour_id = this.quo.tour_id;
+    const p = await read_all_data(`products?cid=${this.$route.query.cid}`);
     this.prod = p;
     p.reduce((a: any, b: any) => {
       if (b.tax == "0%") {
