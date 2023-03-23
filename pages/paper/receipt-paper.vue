@@ -4,82 +4,83 @@
   >
     <div class="page" v-if="onLoad">
       <v-container>
-        <v-row>
-          <v-col cols="8">
-            <v-row>
-              <v-col>
-                <img
-                  src="https://www.adt.or.th/image/ADT1%20-%201108%20-%200263.jpg"
-                  class="w-141px h-47px"
-                  alt="sridara Logo"
-                />
-                <v-sheet style="text-align: left; font-size: 12px">
+        <v-row style="margin: 2px">
+          <v-col>
+            <v-row
+              ><img
+                src="https://www.adt.or.th/image/ADT1%20-%201108%20-%200263.jpg"
+                class="w-141px h-47px"
+                alt="sridara Logo"
+            /></v-row>
+            <v-row style="border-bottom: 1px solid lightgray">
+              <v-col cols="8"
+                ><v-sheet style="text-align: left; font-size: 12px">
                   <div>บริษัท ศรีดาราทัวร์ จำกัด (สำนักงานใหญ่)</div>
                   <div>
                     123 ถนนชยางกูร หมู่ 19 ตำบลบุ่ง อำเภอเมืองอำนาจเจริญ
                     จังหวัดอำนาจเจริญ 37000
                   </div>
-                  <div>เลขประจำตัวผู้เสียภาษี: 0375552000037</div>
-                  โทร.082-3656514
-                  <div><a>www.facebook.com/sridaratourfanpage</a></div>
-                </v-sheet>
-              </v-col>
-            </v-row>
+                  <div>
+                    เลขประจำตัวผู้เสียภาษี: 0375552000037 | โทร.082-3656514
+                  </div>
 
-            <v-row style="font-size: 12px; padding-left: 4px; margin: auto">
-              <v-col style="padding: 0" cols="10">
+                  <div><a>www.facebook.com/sridaratourfanpage</a></div>
+                </v-sheet></v-col
+              >
+              <v-col>
                 <v-table>
-                  <tr style="height: 10px">
-                    <td colspan="2" style="font-weight: bold">&nbsp;</td>
-                  </tr>
-                  <tr style="height: 20px">
+                  <tr style="text-align: center">
                     <td colspan="2">
-                      <b>ชื่อลูกค้า: </b>
+                      <div style="font-size: 14px">
+                        <b>ใบเสร็จรับเงิน</b>
+                      </div>
+                      <div>Receipt</div>
+                      <div style="font-size: 10px">
+                        ต้นฉบับ/Original (เอกสารออกเป็นชุด)
+                      </div>
                     </td>
-                    <td colspan="2">{{ quo.customer_name }}</td>
                   </tr>
-                  <tr style="height: 20px">
-                    <td colspan="2"><b>ที่อยู่: </b></td>
-                    <td colspan="2">{{ quo.address }}</td>
-                  </tr>
-                  <tr style="height: 20px">
-                    <td colspan="2">
-                      <b>สาขา: </b>
+                  <tr style="height: 20px; font-size: 12px">
+                    <td style="width: 50%"><b>เลขที่ใบเสร็จรับเงิน: </b></td>
+                    <td style="text-align: right">
+                      {{ ob.receipt_no }}
                     </td>
-                    <td colspan="2">{{ ob.receipt_branch }}</td>
                   </tr>
-                  <tr style="height: 10px">
-                    <td colspan="2" style="font-weight: bold">&nbsp;</td>
+                  <tr style="height: 20px; font-size: 12px">
+                    <td><b>วันที่รับชำระ: </b></td>
+                    <td style="text-align: right">
+                      {{ dayjs(ob.receipt_date).format("DD/MM/BBBB") }}
+                    </td>
                   </tr>
                 </v-table>
               </v-col>
             </v-row>
-          </v-col>
-
-          <v-col>
-            <v-table style="font-size: 12px">
-              <tr style="text-align: center">
-                <td colspan="2">
-                  <div style="font-size: 14px"><b>ใบเสร็จรับเงิน</b></div>
-                  <div>Receipt</div>
-                </td>
-              </tr>
-              <tr style="text-align: center">
-                <td colspan="2" style="border-bottom: 1px solid lightgray">
-                  ต้นฉบับ/Original (เอกสารออกเป็นชุด)
-                </td>
-              </tr>
-              <tr>
-                <td><b>วันที่รับชำระ:</b></td>
-                <td style="text-align: center">
-                  {{ dayjs(ob.receipt_date).format("DD/MM/BBBB") }}
-                </td>
-              </tr>
-              <tr>
-                <td><b>เลขที่ใบเสร็จรับเงิน:</b></td>
-                <td style="text-align: center">{{ ob.receipt_no }}</td>
-              </tr>
-            </v-table>
+            <v-row style="font-size: 12px">
+              <v-col cols="8"
+                ><v-table>
+                  <tr style="height: 20px">
+                    <td style="width: 20%">
+                      <b>ชื่อลูกค้า: </b>
+                    </td>
+                    <td style="text-align: left">
+                      {{ quo.customer_name }}
+                    </td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td>
+                      <b>ที่อยู่: </b>
+                    </td>
+                    <td>
+                      {{ quo.address }}
+                    </td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td><b>สาขา: </b></td>
+                    <td>{{ ob.receipt_branch }}</td>
+                  </tr>
+                </v-table></v-col
+              >
+            </v-row>
           </v-col>
         </v-row>
 
