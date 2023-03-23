@@ -1,7 +1,15 @@
 import axios from "axios";
+import { WarningOutlined } from "@ant-design/icons-vue";
+import { notification } from "ant-design-vue";
 
-// const url =
-//   "http://2f40-2403-6200-8830-bc90-31a5-c5bd-c542-2c21.ap.ngrok.io/api/";
+const errorNotification = (message: string) => {
+  notification.open({
+    message: "API Error",
+    description: message,
+    icon: () => h(WarningOutlined, { style: "color: #E53935" }),
+  });
+};
+
 const url = "https://back-end-tour.vercel.app/api/";
 
 const api = axios.create({
@@ -9,23 +17,39 @@ const api = axios.create({
 });
 
 export const create_data = async (collection: string, data: any) => {
-  const response = await api.post(collection, data);
-  return response.data;
+  try {
+    const response = await api.post(collection, data);
+    return response.data;
+  } catch (error: any) {
+    errorNotification(error.response.data.message);
+  }
 };
 
 export const read_all_data = async (collection: string) => {
-  const response = await api.get(collection);
-  return response.data;
+  try {
+    const response = await api.get(collection);
+    return response.data;
+  } catch (error: any) {
+    errorNotification(error.response.data.message);
+  }
 };
 
 export const read_one_data = async (collection: string, id: string) => {
-  const response = await api.get(`${collection}/${id}`);
-  return response.data;
+  try {
+    const response = await api.get(`${collection}/${id}`);
+    return response.data;
+  } catch (error: any) {
+    errorNotification(error.response.data.message);
+  }
 };
 
 export const delete_data = async (collection: string, id?: string) => {
-  const response = await api.delete(`${collection}/${id}`);
-  return response.data;
+  try {
+    const response = await api.delete(`${collection}/${id}`);
+    return response.data;
+  } catch (error: any) {
+    errorNotification(error.response.data.message);
+  }
 };
 
 export const update_data = async (
@@ -33,27 +57,34 @@ export const update_data = async (
   id: string,
   data: any
 ) => {
-  const response = await api.put(`${collection}/${id}`, data);
-  return response.data;
+  try {
+    const response = await api.put(`${collection}/${id}`, data);
+    return response.data;
+  } catch (error: any) {
+    errorNotification(error.response.data.message);
+  }
 };
 
 export const ListTaxInvoice = async () => {
-  const response = await api.get("quotations");
-  const documents = response.data;
+  try {
+    const response = await api.get("quotations");
+    const documents = response.data;
+    const promises = documents.map(async (x: any) => {
+      const res = await api.get("taxes");
+      return res.data.map((y: any) => ({
+        tour_id: x.tour_id,
+        date: y.date,
+        no: y.no,
+        desc: `ลูกค้า-${x.customer_name} ที่อยู่-${x.address}`,
+        total: x.total_net_price,
+      }));
+    });
 
-  const promises = documents.map(async (x: any) => {
-    const res = await api.get("taxes");
-    return res.data.map((y: any) => ({
-      tour_id: x.tour_id,
-      date: y.date,
-      no: y.no,
-      desc: `ลูกค้า-${x.customer_name} ที่อยู่-${x.address}`,
-      total: x.total_net_price,
-    }));
-  });
-
-  const results = await Promise.all(promises);
-  return results.flat().filter(onlyUnique);
+    const results = await Promise.all(promises);
+    return results.flat().filter(onlyUnique);
+  } catch (error: any) {
+    errorNotification(error.response.data.message);
+  }
 };
 
 export function onlyUnique(v: any, i: any) {
