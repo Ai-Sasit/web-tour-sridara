@@ -2,7 +2,7 @@
   <div
     style="display: flex; background-color: rgb(225, 225, 241); z-index: -111"
   >
-    <div class="page">
+    <div class="page" v-if="go">
       <v-container>
         <v-row style="margin: 2px">
           <v-col>
@@ -37,20 +37,13 @@
                       <div>Quatation</div>
                     </td>
                   </tr>
-                </v-table>
-              </v-col>
-            </v-row>
-            <v-row style="font-size: 12px">
-              <v-col cols="8"></v-col>
-              <v-col>
-                <v-table>
-                  <tr style="height: 20px">
-                    <td><b>เลขที่:</b></td>
-                    <td style="text-align: right">{{ quo.no }}</td>
+                  <tr style="height: 20px; font-size: 12px">
+                    <td style="width: 50%"><b>เลขที่:</b></td>
+                    <td>145447888246{{ quo.no }}</td>
                   </tr>
-                  <tr style="height: 20px">
+                  <tr style="height: 20px; font-size: 12px">
                     <td><b>วันที่:</b></td>
-                    <td style="text-align: right">{{ quo.date }}</td>
+                    <td>02/05/66{{ quo.date }}</td>
                   </tr>
                 </v-table>
               </v-col>
@@ -63,60 +56,60 @@
                       <b>ชื่อลูกค้า: </b>
                     </td>
                     <td style="text-align: left">
-                      {{ quo.customer_name }}
+                      หนูนัน วันดี{{ quo.customer_name }}
                     </td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
                       <b>ชื่อผู้ติดต่อ: </b>
                     </td>
-                    <td>{{ quo.contact_name }}</td>
+                    <td>หมี{{ quo.contact_name }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ที่อยู่: </b></td>
-                    <td>{{ quo.address }}</td>
+                    <td>20-22 ม.2 ต.โพธิ์กระัสังข์{{ quo.address }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
                       <b>ID TAX: </b>
                     </td>
-                    <td>{{ quo.tax_id }}</td>
+                    <td>254211554{{ quo.tax_id }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
                       <b>โทร: </b>
                     </td>
-                    <td>{{ quo.customer_tel }}</td>
+                    <td>0969128748{{ quo.customer_tel }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
                       <b>Email: </b>
                     </td>
-                    <td>{{ quo.email }}</td>
+                    <td>Srisantisang2515@gmail.com{{ quo.email }}</td>
                   </tr>
                 </v-table></v-col
               >
               <v-col
                 ><v-table style="font-size: 12px">
                   <tr style="height: 20px">
-                    <td style="width: 45%"><b>รหัสลูกค้า:</b></td>
-                    <td>{{ quo.customer_code }}</td>
+                    <td style="width: 50%"><b>รหัสลูกค้า:</b></td>
+                    <td>123456789{{ quo.customer_code }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ผู้เสนอขาย:</b></td>
-                    <td>{{ quo.sales_person }}</td>
+                    <td>หนูนา{{ quo.sales_person }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ฝ่าย:</b></td>
-                    <td>{{ quo.sale_department }}</td>
+                    <td>ขาย{{ quo.sale_department }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ยืนยันราคาภายใน:</b></td>
-                    <td>{{ quo.confirm_price_within }}</td>
+                    <td>28/06/66{{ quo.confirm_price_within }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>วันส่งของ:</b></td>
-                    <td>{{ quo.delivery_date }}</td>
+                    <td>29/07/66{{ quo.delivery_date }}</td>
                   </tr>
                 </v-table></v-col
               >
@@ -207,27 +200,30 @@
               </tr>
               <tr>
                 <td colspan="6">
-                  <b>กำหนดยืนราคา &nbsp;{{ quo.earnest_money }}&nbsp;บาท</b>
+                  กำหนดยืนราคา &nbsp;<b>{{ quo.earnest_money }}</b
+                  >&nbsp;วัน
                 </td>
               </tr>
               <tr>
                 <td colspan="6">
-                  2.หากชำระเงินด้วยเช็คโปรดขีดคร่อมในนาม
-                  “บริษัทศรีดาราทัวร์จำกัด” และขีดฆ่าหรือผู้ถือออก
+                  จึงเรียนมาเพื่อโปรดพิจารณาและหวังเป็นอย่างยิ่งว่าจะได้รับการพิจารณาสั่งซื้อจากท่าน
+                  ขอขอบพระคุณมา ณ ที่นี้
                 </td>
               </tr>
               <tr>
                 <td colspan="6">
-                  3.การชำระเงินด้วยเช็คจะสมบูรณ์เมื่อ
-                  บริษัทฯได้รับเงินตามเช็คเรียบร้อย
+                  <b>ดังรายละเอียดธนาคารดังต่อไปนี้ :</b>
                 </td>
               </tr>
               <tr>
                 <td colspan="2">
-                  <b>ตัวอักษร: </b>
+                  1.กรุณาชำระเงิน ค่ามัดจำเบื้องต้นไม่ต่ำกว่า 40% ของราคาที่เสนอ
+                  โดยชำระเงินก่อนการติดตั้งอย่างน้อย 7 วัน
                 </td>
-                <td colspan="4">
-                  <b> dgffdsgfdgsd</b>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  2.หลังติดตั้งและใช้งานได้เรียบร้อยแล้วให้ชำระเงินส่วนที่เหลือ
                 </td>
               </tr>
               <tr>
@@ -242,94 +238,36 @@
                 <td>&nbsp;</td>
               </tr>
               <tr>
+                <td>มัดจำ</td>
+                <td style="text-align: right">
+                  {{ quo.price_validate_period }} บาท
+                </td>
+              </tr>
+              <tr>
                 <td>รวมเงิน</td>
                 <td style="text-align: right">{{ quo.total_price }} บาท</td>
               </tr>
               <tr>
-                <td>มัดจำ 100%</td>
-                <td style="text-align: right">{{ quo.earnest_money }} บาท</td>
+                <td>ส่วนลดสินค้า</td>
+                <td style="text-align: right">
+                  {{ quo.less_cash_discount }} บาท
+                </td>
               </tr>
               <tr>
-                <td>มูลค่าคิดภาษี</td>
+                <td>มูลค่าสินค้า</td>
                 <td style="text-align: right">{{ quo.net_price }} บาท</td>
               </tr>
               <tr>
-                <td>ภาษีมูลค่าเพิ่ม</td>
+                <td>ภาษีมูลค่าเพิ่ม 7 %</td>
                 <td style="text-align: right">{{ quo.vat }} บาท</td>
               </tr>
               <tr>
-                <td><b>ยอดสุทธิ</b></td>
+                <td><b>จำนวนเงินทั้งสิ้น</b></td>
                 <td style="text-align: right">{{ quo.total_net_price }} บาท</td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
-              </tr>
-            </v-table>
-          </v-col>
-        </v-row>
-
-        <v-row style="padding: 1px; margin: auto">
-          <v-col style="padding: 0">
-            <v-table
-              density="compact"
-              style="font-size: 12px; border: 1px solid black; padding: 2px"
-            >
-              <tr>
-                <td>
-                  <v-row>
-                    <v-col cols="3"> กำหนดยืนราคา </v-col>
-                    <v-col cols="2">
-                      {{ quo.price_validate_period }}
-                    </v-col>
-                    <v-col cols="2"> วัน </v-col>
-                  </v-row>
-                </td>
-                <td>รวมเงิน</td>
-                <td style="text-align: end">
-                  {{ quo.total_price }} บาท&nbsp;&nbsp;
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  จึงเรียนมาเพื่อโปรดพิจารณาและหวังเป็นอย่างยิ่งว่าจะได้รับการพิจารณาสั่งซื้อจากท่าน
-                  ขอขอบพระคุณมา ณ ที่นี้
-                </td>
-                <td>มูลค่าสินค้า</td>
-                <td style="text-align: end">
-                  {{ quo.net_price }}
-                  บาท&nbsp;&nbsp;
-                </td>
-              </tr>
-              <tr>
-                <td style="font-weight: bold">
-                  ดังรายละเอียดธนาคารดังต่อไปนี้ :
-                </td>
-                <td>ส่วนลดสินค้า</td>
-                <td style="text-align: end">
-                  {{ quo.less_cash_discount }}
-                  บาท&nbsp;&nbsp;
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  1.กรุณาชำระเงิน ค่ามัดจำเบื้องต้นไม่ต่ำกว่า 40% ของราคาที่เสนอ
-                  โดยชำระเงินก่อนการติดตั้งอย่างน้อย 7 วัน
-                </td>
-                <td>ภาษีมูลค่าเพิ่ม 7%</td>
-                <td style="text-align: end">
-                  {{ quo.vat }}
-                  บาท&nbsp;&nbsp;
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  2.หลังติดตั้งและใช้งานได้เรียบร้อยแล้วให้ชำระเงินส่วนที่เหลือ
-                </td>
-                <td>จำนวนเงินทั้งสิ้น</td>
-                <td style="text-align: end">
-                  {{ quo.total_net_price }} บาท&nbsp;&nbsp;
-                </td>
               </tr>
             </v-table>
           </v-col>
@@ -404,10 +342,10 @@
           </v-col>
           <v-col>
             <v-table>
-              <tr style="font-size: 10px; text-align: left">
+              <tr style="font-size: 10px; text-align: center">
                 <td>
-                  <div>ข้าพเจ้าเห็นชอบตามรายการที่เสนอ</div>
-                  <div>และขอสั่งซื้อตามรายละเอียดนี้ทุกประการ</div>
+                  <div>ข้าพเจ้าเห็นชอบตามรายการที่เสนอและ</div>
+                  <div>ขอสั่งซื้อตามรายละเอียดนี้ทุกประการ</div>
                 </td>
               </tr>
               <tr style="height: 100px; font-size: 10px; text-align: left">
