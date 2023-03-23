@@ -541,8 +541,8 @@ export default defineComponent({
   },
   async mounted() {
     this.tour_id = String(this.$route.params.tid);
-    this.product_ls = await read_all_data(`products?tid=${this.tour_id}`);
-    this.customer_code = `C-${genRanDec(10)}`;
+    this.customer_code = String(this.$route.query.cid);
+    this.product_ls = await read_all_data(`products?cid=${this.customer_code}`);
     this.product_code = `Q-${genRanDec(10)}`;
 
     const product_mounted = this.product_ls[0];

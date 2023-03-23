@@ -510,9 +510,11 @@ export default {
         amount = total - this.tour_program.discount;
       }
       this.tour_program.loading = true;
+      const cid = `C-${genRanDec(10)}`;
       const payload = {
         tour_id: this.tour_id,
         code: `Q-${genRanDec(10)}`,
+        customer_id: cid,
         name: this.tour_data.name,
         desc: this.tour_data.program_name,
         qty: 1,
@@ -525,7 +527,7 @@ export default {
       create_data("product", payload).then(() => {
         this.tour_program.loading = false;
         this.$message.info("ไปสู่หน้าสร้างรายละเอียดใบเสนอราคา");
-        this.$router.push(`/qpform/${this.tour_id}`);
+        this.$router.push(`/qpform/${this.tour_id}?cid=${cid}`);
       });
     },
     handleDelete(name) {
