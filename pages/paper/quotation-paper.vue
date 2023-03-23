@@ -39,11 +39,11 @@
                   </tr>
                   <tr style="height: 20px; font-size: 12px">
                     <td style="width: 50%"><b>เลขที่:</b></td>
-                    <td>{{ quo.no }}</td>
+                    <td style="text-align: right">{{ quo.no }}</td>
                   </tr>
                   <tr style="height: 20px; font-size: 12px">
                     <td><b>วันที่:</b></td>
-                    <td>{{ quo.date }}</td>
+                    <td style="text-align: right">{{ quo.date }}</td>
                   </tr>
                 </v-table>
               </v-col>
@@ -67,7 +67,9 @@
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ที่อยู่: </b></td>
-                    <td>{{ quo.address }}</td>
+                    <td>
+                      {{ quo.address }}
+                    </td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
@@ -93,23 +95,33 @@
                 ><v-table style="font-size: 12px">
                   <tr style="height: 20px">
                     <td style="width: 50%"><b>รหัสลูกค้า:</b></td>
-                    <td>{{ quo.customer_code }}</td>
+                    <td style="text-align: right">
+                      {{ quo.customer_code }}
+                    </td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ผู้เสนอขาย:</b></td>
-                    <td>{{ quo.sales_person }}</td>
+                    <td style="text-align: right">
+                      {{ quo.sales_person }}
+                    </td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ฝ่าย:</b></td>
-                    <td>{{ quo.sale_department }}</td>
+                    <td style="text-align: right">
+                      {{ quo.sale_department }}
+                    </td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ยืนยันราคาภายใน:</b></td>
-                    <td>{{ quo.confirm_price_within }}</td>
+                    <td style="text-align: right">
+                      {{ quo.confirm_price_within }}
+                    </td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>วันส่งของ:</b></td>
-                    <td>{{ quo.delivery_date }}</td>
+                    <td style="text-align: right">
+                      {{ quo.delivery_date }}
+                    </td>
                   </tr>
                 </v-table></v-col
               >
