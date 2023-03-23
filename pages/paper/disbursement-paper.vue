@@ -4,104 +4,85 @@
   >
     <div class="page">
       <v-container>
-        <v-row>
+        <v-row style="margin: 2px">
           <v-col>
-            <v-row>
-              <v-col>
-                <img
-                  src="https://www.adt.or.th/image/ADT1%20-%201108%20-%200263.jpg"
-                  class="w-141px h-47px"
-                  alt="sridara Logo"
-                />
-                <v-sheet style="text-align: center; font-size: 12px">
+            <v-row
+              ><img
+                src="https://www.adt.or.th/image/ADT1%20-%201108%20-%200263.jpg"
+                class="w-141px h-47px"
+                alt="sridara Logo"
+            /></v-row>
+            <v-row style="border-bottom: 1px solid lightgray">
+              <v-col cols="8"
+                ><v-sheet style="text-align: left; font-size: 12px">
                   <div>บริษัท ศรีดาราทัวร์ จำกัด (สำนักงานใหญ่)</div>
                   <div>
                     123 ถนนชยางกูร หมู่ 19 ตำบลบุ่ง อำเภอเมืองอำนาจเจริญ
                     จังหวัดอำนาจเจริญ 37000
                   </div>
-                  <div>เลขประจำตัวผู้เสียภาษี: 0375552000037</div>
-                  โทร.082-3656514
+                  <div>
+                    เลขประจำตัวผู้เสียภาษี: 0375552000037 | โทร.082-3656514
+                  </div>
+
                   <div><a>www.facebook.com/sridaratourfanpage</a></div>
-                </v-sheet>
+                </v-sheet></v-col
+              >
+              <v-col>
+                <v-table>
+                  <tr style="text-align: center">
+                    <td colspan="2">
+                      <div style="font-size: 14px">
+                        <b>ใบประมาณการเบิกเงินสดย่อย</b>
+                      </div>
+                      <div>Disbursement Estimate</div>
+                    </td>
+                  </tr>
+                  <tr style="height: 20px; font-size: 12px">
+                    <td style="width: 50%"><b>เลขที่:</b></td>
+                    <td style="text-align: right">15874875587</td>
+                  </tr>
+                  <tr style="height: 20px; font-size: 12px">
+                    <td><b>วันที่:</b></td>
+                    <td style="text-align: right">09/05/66</td>
+                  </tr>
+                </v-table>
               </v-col>
             </v-row>
-          <br>
-            <center>ใบประมาณการเบิกเงินสดย่อย</center>
-      <table
-        
-        class="w-full text-sm text-left">
-        <tr>
-          <td colspan="5" class="pb-1 pt-2 px-3">
-            <h3>
-           
-            </h3>
-          </td>
-          <td colspan="4" class="pb-1 pt-2 px-3">
-             
-          </td>
-          <td colspan="3" class="pb-1 pt-2 px-3">
-            เลขที่ : 
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" class="py-1 pt-2 px-3">
-           
-          </td>
-          <td colspan="2" class="py-1 px-3">
-           
-          </td>
-          <td colspan="2" class="py-1 px-3">
-            
-          </td>
-          <td colspan="4" class="py-1 px-3">
-            วันที่ : 
-          </td>
-        </tr>
-
-        <tr>
-          <td colspan="4" class="py-1 px-3">
-            <h3>
-              ชื่อผู้ขอเบิก :
-              
-            </h3>
-          </td>
-          <td colspan="4" class="py-1 px-3">
-            <h3>
-              วันที่ต้องการใช้เงิน :
-              
-            </h3>
-          </td>
-        </tr>
-
-         <tr>
-          <td colspan="4" class="py-1 px-3">
-            <h3>
-              แผนก :
-              
-            </h3>
-          </td>
-          <td colspan="4" class="py-1 px-3">
-            <h3>
-              โครงการ :
-              
-            </h3>
-          </td>
-        </tr>
-
-        <tr>
-          <td colspan="5" class="py-1 px-3">
-            <h3>
-              วัตถุประสงค์การยืมเงินทดลองจ่าย :
-              
-            </h3>
-          </td>
-         
-        </tr>
-
-      </table>
+            <v-row style="font-size: 12px">
+              <v-col style="border-right: 1px solid lightgray"
+                ><v-table>
+                  <tr style="height: 20px">
+                    <td style="width: 55%">
+                      <b>ชื่อผู้ขอเบิก: </b>
+                    </td>
+                    <td style="text-align: left">สมัย ใจป้ำ</td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td>
+                      <b>แผนก: </b>
+                    </td>
+                    <td>จัดการคลังสินค้า</td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td><b>วัตถุประสงค์การยืมเงินทดลองจ่าย: </b></td>
+                    <td>อยากลองระบบ</td>
+                  </tr>
+                </v-table>
+              </v-col>
+              <v-col
+                ><v-table style="font-size: 12px">
+                  <tr style="height: 20px">
+                    <td style="width: 50%"><b>วันที่ต้องการใช้เงิน:</b></td>
+                    <td style="text-align: right">03/07/66</td>
+                  </tr>
+                  <tr style="height: 20px">
+                    <td><b>โครงการ:</b></td>
+                    <td style="text-align: right">เงินผู้สูงอายุ</td>
+                  </tr>
+                </v-table></v-col
+              >
+            </v-row>
           </v-col>
-
-          
         </v-row>
 
         <v-row
@@ -110,37 +91,33 @@
           <v-col style="padding: 1px; height: 400px">
             <v-table density="compact" height="auto">
               <thead style="font-weight: bold; font-size: 14px">
-                <tr
-                  style="
-                    border-top: 1px solid black;
-                    border-bottom: 1px solid black;
-                  "
-                >
+                <tr style="border-top: 1px solid black">
                   <td class="text-center" style="font-size: xx-small">ลำดับ</td>
                   <td class="text-center" style="font-size: xx-small">
                     รายละเอียดค่าใช้จ่าย
                   </td>
-                  <td class="text-center" style="font-size: xx-small">
-                    ราคา
+                  <td class="text-center" style="font-size: xx-small">ราคา</td>
+                  <td
+                    colspan="5"
+                    class="text-center"
+                    style="font-size: xx-small"
+                  >
+                    ค่าใช้จ่าย
                   </td>
-                  <td colspan="5" class="text-center" style="font-size: xx-small">ค่าใช้จ่าย
-                  </td>
-                  <td class="text-center" style="font-size: xx-small">
-                    จำนวน
-                  </td>
+                  <td class="text-center" style="font-size: xx-small">จำนวน</td>
                   <td class="text-center" style="font-size: xx-small">
                     ยอดสุทธิ
                   </td>
                 </tr>
-              </thead>
-              <tbody style="font-weight: normal; font-size: 14px">
                 <tr style="border-bottom: 1px solid black">
-                  
                   <td class="text-center" style="font-size: xx-small">
+                    &nbsp;
                   </td>
                   <td class="text-center" style="font-size: xx-small">
+                    &nbsp;
                   </td>
                   <td class="text-center" style="font-size: xx-small">
+                    &nbsp;
                   </td>
                   <td class="text-center" style="font-size: xx-small">
                     เบี้ยเลี้ยง
@@ -149,49 +126,97 @@
                     ค่าที่พัก
                   </td>
                   <td class="text-center" style="font-size: xx-small">
-                    ค่ายานพาหะนะ
+                    ค่ายานพาหนะ
                   </td>
                   <td class="text-center" style="font-size: xx-small">
                     ค่าน้ำมัน
                   </td>
+                  <td class="text-center" style="font-size: xx-small">อื่นๆ</td>
                   <td class="text-center" style="font-size: xx-small">
-                    อื่นๆ
+                    &nbsp;
                   </td>
-                  
+                  <td class="text-center" style="font-size: xx-small">
+                    &nbsp;
+                  </td>
+                </tr>
+              </thead>
+              <tbody style="font-weight: normal; font-size: 14px">
+                <tr>
+                  <td class="text-center" style="font-size: xx-small">1</td>
+                  <td class="text-center" style="font-size: xx-small">
+                    เดินทางไปเชียงใหม่ 3 วัน 2 คืน
+                  </td>
+                  <td class="text-center" style="font-size: xx-small">29990</td>
+                  <td class="text-center" style="font-size: xx-small">3000</td>
+                  <td class="text-center" style="font-size: xx-small">200</td>
+                  <td class="text-center" style="font-size: xx-small">50</td>
+                  <td class="text-center" style="font-size: xx-small">15</td>
+                  <td class="text-center" style="font-size: xx-small">78</td>
+                  <td class="text-center" style="font-size: xx-small">35000</td>
+                  <td class="text-center" style="font-size: xx-small">20000</td>
                 </tr>
               </tbody>
             </v-table>
           </v-col>
         </v-row>
-        <v-row style="font-size: 12px; padding-left: 4px; margin: auto">
-          <v-col style="padding: 0">
-            <v-table>
-              <tr style="height: 20px">
-                <td colspan="5" style="font-weight: bold">&nbsp;</td>
+
+        <v-row
+          style="
+            font-size: 12px;
+            padding-left: 4px;
+            padding-right: 4px;
+            margin: auto;
+            border-bottom: 1px solid black;
+          "
+        >
+          <v-col style="padding: 0" cols="9"
+            ><v-table>
+              <tr>
+                <td colspan="6">&nbsp;</td>
               </tr>
-              <tr style="height: 30px">
-                <tr style="height: 30px">
-                <td colspan="2" style="font-weight: bold">ตัวหนังสือ:</td>
-              </tr> <td align="right" colspan="2" style="font-weight: bold">รวมสุทธิ :</td>
-                <td align="center" colspan="2">xxx</td>
+              <tr>
+                <td colspan="6">ตัวหนังสือ: &nbsp;ห้าพันหกร้อยบาทถ้วน&nbsp;</td>
               </tr>
-             
+              <tr>
+                <td colspan="6">
+                  ผู้อนุมัติ (แบบอิเล็กทอรนิกส์): &nbsp; ใครสักคนนึง &nbsp;
+                </td>
+              </tr>
+              <tr>
+                <td colspan="6">
+                  ข้าพเจ้าขอรับรองว่ารายการที่กล่าวมาข้างต้นเป็นความจริง
+                  พร้อมหลักฐานการจ่าย / แผนประกอบการที่ส่งมา
+                </td>
+              </tr>
+              <tr>
+                <td colspan="6">
+                  รวมทั้งจำนวนเงินที่ขอเบิกถูกต้องตามระเบียบบริษัททุกประการ
+                </td>
+              </tr>
+              <tr>
+                <td colspan="6">&nbsp;</td>
+              </tr>
+            </v-table>
+          </v-col>
+          <v-col style="padding: 0" cols="3"
+            ><v-table style="padding-left: 20px; padding-right: 10px">
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td><b>รวมสุทธิ</b></td>
+                <td style="text-align: right">50000 บาท</td>
+              </tr>
+
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
             </v-table>
           </v-col>
         </v-row>
-         <v-row style="font-size: 12px; padding-left: 4px; margin: auto">
-          <v-col style="padding: 0">
-            <v-table>
-              
-              <tr style="height: 30px">
-                <td colspan="2" style="font-weight: bold">ผู้อนุมัติ (แบบอิเล็กทอรนิกส์) :&nbsp;&nbsp;&nbsp;&nbsp;:</td>
-              </tr>
-              <tr style="height: 20px">
-                <td colspan="3" style="font-weight: bold; border-bottom: 1px solid black">&nbsp;</td>
-              </tr>
-            </v-table>
-          </v-col>
-        </v-row>
+
         <v-row style="margin: auto; font-size: 12px">
           <v-col>
             <v-table style="text-align: center">
@@ -204,6 +229,9 @@
               <tr>
                 <td>ผู้ขอเบิก</td>
               </tr>
+              <tr>
+                <td>วันที่</td>
+              </tr>
               <tr style="border-bottom: 1px solid black">
                 <td>&nbsp;</td>
               </tr>
@@ -215,11 +243,14 @@
                 <td>&nbsp;</td>
               </tr>
               <tr>
-                <td>(………………………………….)</td>
+                <td>&nbsp;</td>
               </tr>
               <tr>
                 <td>ผู้อนุมัติ/ตรวจสอบ</td>
               </tr>
+              <tr>
+                <td>วันที่</td>
+              </tr>
               <tr style="border-bottom: 1px solid black">
                 <td>&nbsp;</td>
               </tr>
@@ -231,11 +262,14 @@
                 <td>&nbsp;</td>
               </tr>
               <tr>
-                <td>(………………………………….)</td>
+                <td>&nbsp;</td>
               </tr>
               <tr>
                 <td>ผู้รับเงิน</td>
               </tr>
+              <tr>
+                <td>วันที่</td>
+              </tr>
               <tr style="border-bottom: 1px solid black">
                 <td>&nbsp;</td>
               </tr>
@@ -247,10 +281,13 @@
                 <td>&nbsp;</td>
               </tr>
               <tr>
-                <td>(………………………………….)</td>
+                <td>&nbsp;</td>
               </tr>
               <tr>
                 <td>ผู้จ่ายเงิน</td>
+              </tr>
+              <tr>
+                <td>วันที่</td>
               </tr>
               <tr style="border-bottom: 1px solid black">
                 <td>&nbsp;</td>

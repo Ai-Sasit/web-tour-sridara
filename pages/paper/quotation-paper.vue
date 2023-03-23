@@ -1,6 +1,7 @@
 <template>
   <div
-    style="display: flex; background-color: rgb(225, 225, 241); z-index: -111">
+    style="display: flex; background-color: rgb(225, 225, 241); z-index: -111"
+  >
     <div class="page" v-if="go">
       <v-container>
         <v-row style="margin: 2px">
@@ -134,7 +135,8 @@
         </v-row>
 
         <v-row
-          style="padding: 1px; margin: auto; border-bottom: 1px solid black">
+          style="padding: 1px; margin: auto; border-bottom: 1px solid black"
+        >
           <v-col style="padding: 1px; height: 400px">
             <v-table density="compact" height="auto">
               <thead style="font-weight: bold; font-size: 14px">
@@ -142,7 +144,8 @@
                   style="
                     border-top: 1px solid black;
                     border-bottom: 1px solid black;
-                  ">
+                  "
+                >
                   <td class="text-center" style="font-size: xx-small">ลำดับ</td>
                   <td class="text-center" style="font-size: xx-small">
                     รหัสสินค้า
@@ -197,13 +200,14 @@
 
         <v-row
           style="
-            font-size: 12px;
+            font-size: 11px;
             padding-left: 4px;
             padding-right: 4px;
             margin: auto;
             border-bottom: 1px solid black;
-          ">
-          <v-col style="padding: 0" cols="9"
+          "
+        >
+          <v-col style="padding: 0" cols="8"
             ><v-table>
               <tr>
                 <td colspan="6">&nbsp;</td>
@@ -244,7 +248,7 @@
               </tr>
             </v-table>
           </v-col>
-          <v-col style="padding: 0" cols="3"
+          <v-col style="padding: 0" cols="4"
             ><v-table style="padding-left: 20px; padding-right: 10px">
               <tr>
                 <td>&nbsp;</td>
@@ -399,7 +403,8 @@
 
   <a-modal
     v-model:visible="dialog3"
-    title="กรุณากรอกราคาของทัวน์ใหม่ ก่อนแก้ไขใบเสนอราคา">
+    title="กรุณากรอกราคาของทัวน์ใหม่ ก่อนแก้ไขใบเสนอราคา"
+  >
     <template #footer>
       <a-button key="back" @click="dialog3 = false">ยกเลิก</a-button>
       <a-button
@@ -421,7 +426,8 @@
           type="text"
           id="base-input"
           v-model.number="tour_program.price_per_unit"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
       </v-col>
       <v-col>
         <label
@@ -432,7 +438,8 @@
         <select
           style="height: 55%"
           v-model="tour_program.tax"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
           <option value="0%">0%</option>
           <option value="7%">7%</option>
           <option value="9%">9%</option>
@@ -448,7 +455,8 @@
           type="text"
           id="base-input"
           v-model.number="tour_program.discount"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
       </v-col>
     </v-row>
   </a-modal>
