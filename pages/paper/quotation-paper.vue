@@ -1,7 +1,6 @@
 <template>
   <div
-    style="display: flex; background-color: rgb(225, 225, 241); z-index: -111"
-  >
+    style="display: flex; background-color: rgb(225, 225, 241); z-index: -111">
     <div class="page" v-if="go">
       <v-container>
         <v-row style="margin: 2px">
@@ -39,11 +38,11 @@
                   </tr>
                   <tr style="height: 20px; font-size: 12px">
                     <td style="width: 50%"><b>เลขที่:</b></td>
-                    <td>145447888246{{ quo.no }}</td>
+                    <td>{{ quo.no }}</td>
                   </tr>
                   <tr style="height: 20px; font-size: 12px">
                     <td><b>วันที่:</b></td>
-                    <td>02/05/66{{ quo.date }}</td>
+                    <td>{{ quo.date }}</td>
                   </tr>
                 </v-table>
               </v-col>
@@ -56,36 +55,36 @@
                       <b>ชื่อลูกค้า: </b>
                     </td>
                     <td style="text-align: left">
-                      หนูนัน วันดี{{ quo.customer_name }}
+                      {{ quo.customer_name }}
                     </td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
                       <b>ชื่อผู้ติดต่อ: </b>
                     </td>
-                    <td>หมี{{ quo.contact_name }}</td>
+                    <td>{{ quo.contact_name }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ที่อยู่: </b></td>
-                    <td>20-22 ม.2 ต.โพธิ์กระัสังข์{{ quo.address }}</td>
+                    <td>{{ quo.address }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
                       <b>ID TAX: </b>
                     </td>
-                    <td>254211554{{ quo.tax_id }}</td>
+                    <td>{{ quo.tax_id }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
                       <b>โทร: </b>
                     </td>
-                    <td>0969128748{{ quo.customer_tel }}</td>
+                    <td>{{ quo.customer_tel }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
                       <b>Email: </b>
                     </td>
-                    <td>Srisantisang2515@gmail.com{{ quo.email }}</td>
+                    <td>{{ quo.email }}</td>
                   </tr>
                 </v-table></v-col
               >
@@ -93,23 +92,23 @@
                 ><v-table style="font-size: 12px">
                   <tr style="height: 20px">
                     <td style="width: 50%"><b>รหัสลูกค้า:</b></td>
-                    <td>123456789{{ quo.customer_code }}</td>
+                    <td>{{ quo.customer_code }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ผู้เสนอขาย:</b></td>
-                    <td>หนูนา{{ quo.sales_person }}</td>
+                    <td>{{ quo.sales_person }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ฝ่าย:</b></td>
-                    <td>ขาย{{ quo.sale_department }}</td>
+                    <td>{{ quo.sale_department }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ยืนยันราคาภายใน:</b></td>
-                    <td>28/06/66{{ quo.confirm_price_within }}</td>
+                    <td>{{ quo.confirm_price_within }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>วันส่งของ:</b></td>
-                    <td>29/07/66{{ quo.delivery_date }}</td>
+                    <td>{{ quo.delivery_date }}</td>
                   </tr>
                 </v-table></v-col
               >
@@ -118,8 +117,7 @@
         </v-row>
 
         <v-row
-          style="padding: 1px; margin: auto; border-bottom: 1px solid black"
-        >
+          style="padding: 1px; margin: auto; border-bottom: 1px solid black">
           <v-col style="padding: 1px; height: 400px">
             <v-table density="compact" height="auto">
               <thead style="font-weight: bold; font-size: 14px">
@@ -127,8 +125,7 @@
                   style="
                     border-top: 1px solid black;
                     border-bottom: 1px solid black;
-                  "
-                >
+                  ">
                   <td class="text-center" style="font-size: xx-small">ลำดับ</td>
                   <td class="text-center" style="font-size: xx-small">
                     รหัสสินค้า
@@ -188,8 +185,7 @@
             padding-right: 4px;
             margin: auto;
             border-bottom: 1px solid black;
-          "
-        >
+          ">
           <v-col style="padding: 0" cols="9"
             ><v-table>
               <tr>
@@ -372,7 +368,9 @@
     style="margin-top: -2rem; background-color: rgb(225, 225, 241)"
     class="hide-btn"
     ><v-col style="text-align: right">
-      <v-btn color="yellow-darken-4" @click="dialog3 = true"
+      <v-btn
+        color="yellow-darken-4"
+        @click="$router.push(`/qpform/quoedit/${tour_id}`)"
         >แก้ไขเอกสารใบเสนอราคา</v-btn
       ></v-col
     ><v-col style="text-align: left">
@@ -384,8 +382,7 @@
 
   <a-modal
     v-model:visible="dialog3"
-    title="กรุณากรอกราคาของทัวน์ใหม่ ก่อนแก้ไขใบเสนอราคา"
-  >
+    title="กรุณากรอกราคาของทัวน์ใหม่ ก่อนแก้ไขใบเสนอราคา">
     <template #footer>
       <a-button key="back" @click="dialog3 = false">ยกเลิก</a-button>
       <a-button
@@ -407,8 +404,7 @@
           type="text"
           id="base-input"
           v-model.number="tour_program.price_per_unit"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
       </v-col>
       <v-col>
         <label
@@ -419,8 +415,7 @@
         <select
           style="height: 55%"
           v-model="tour_program.tax"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        >
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="0%">0%</option>
           <option value="7%">7%</option>
           <option value="9%">9%</option>
@@ -436,8 +431,7 @@
           type="text"
           id="base-input"
           v-model.number="tour_program.discount"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
       </v-col>
     </v-row>
   </a-modal>
@@ -450,6 +444,7 @@ export default defineComponent({
   data() {
     return {
       tour_id: "",
+      customer_id: "",
       quo: {} as any,
       product: [] as any,
       go: false,
@@ -464,15 +459,18 @@ export default defineComponent({
   },
   async mounted() {
     this.tour_id = String(this.$route.query.tid);
+    this.customer_id = String(this.$route.query.cid);
     this.$message.loading({
       content: "กำลังโหลดข้อมูลใบเสนอราคา และสร้างเป็นเอกสาร",
       key,
     });
-    const data = await read_all_data(`quotations?tour_id=${this.tour_id}`);
+    const data = await read_all_data(
+      `quotations?customer_id=${this.customer_id}`
+    );
     data.length > 0 ? (this.go = true) : (this.go = false);
     this.quo = data[0];
 
-    const product = await read_all_data(`products?tid=${this.tour_id}`);
+    const product = await read_all_data(`products?cid=${this.customer_id}`);
     this.product = product;
     this.tour_program.price_per_unit = product[0].price_per_unit;
     this.tour_program.tax = product[0].tax;

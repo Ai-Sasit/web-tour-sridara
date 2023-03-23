@@ -640,6 +640,7 @@ export default defineComponent({
         }
         const payload: any = {
           tour_id: this.tour_id,
+          customer_id: this.customer_code,
           code: this.product_code,
           name: this.product_name,
           desc: "-",
