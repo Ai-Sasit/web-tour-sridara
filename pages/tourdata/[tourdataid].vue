@@ -251,21 +251,37 @@
             </td>
             <td class="px-6 py-4 text-right">
               <a
-                href="#"
+                :href="`/paper/quotation-paper?tid=${tour_id}&cid=${item.customer_code}`"
                 class="font-medium text-yellow-400 dark:text-yellow-400 hover:underline mr-5"
                 >ดูใบเสนอราคา</a
               >
               <a-dropdown>
                 <a class="ant-dropdown-link text-blue-600 mr-5" @click.prevent>
-                  สร้างใบอื่นๆ
+                  ใบอื่นๆ
                 </a>
                 <template #overlay>
                   <a-menu>
-                    <a-menu-item>
-                      <a href="javascript:;">ใบแจ้งหนี้</a>
+                    <a-menu-item v-if="!item.haveBilling">
+                      <a @click.stop.prevent="onOpenBillDialog(item)"
+                        >สร้างใบแจ้งหนี้</a
+                      >
                     </a-menu-item>
-                    <a-menu-item>
-                      <a href="javascript:;">ใบกำกับภาษี</a>
+                    <a-menu-item v-else>
+                      <a
+                        :href="`/paper/billing-paper?qid=${item.id}&cid=${item.customer_code}`"
+                        >ดูใบแจ้งหนี้</a
+                      >
+                    </a-menu-item>
+                    <a-menu-item v-if="!item.haveTax">
+                      <a @click.stop.prevent="onOpenTaxDialog(item)"
+                        >สร้างใบกำกับภาษี</a
+                      >
+                    </a-menu-item>
+                    <a-menu-item v-else>
+                      <a
+                        :href="`/paper/tax-paper?qid=${item.id}&cid=${item.customer_code}`"
+                        >ดูใบกำกับภาษี</a
+                      >
                     </a-menu-item>
                   </a-menu>
                 </template>
@@ -423,6 +439,7 @@ import {
 import locale from "ant-design-vue/es/date-picker/locale/th_TH";
 import dayjs from "dayjs";
 import buddhistEra from "dayjs/plugin/buddhistEra";
+import axios from "axios";
 dayjs.extend(buddhistEra);
 export default {
   setup() {
@@ -456,6 +473,16 @@ export default {
     this.tax.tax_date = dayjs(new Date());
   },
   methods: {
+    onOpenBillDialog(item) {
+      this.quo_id = item.id;
+      this.customer_id = item.customer_code;
+      this.dialog = true;
+    },
+    onOpenTaxDialog(item) {
+      this.quo_id = item.id;
+      this.customer_id = item.customer_code;
+      this.dialog2 = true;
+    },
     validateQuotation() {
       if (this.tour_program.price_per_unit == 0) {
         this.$message.error("กรุณากรอกราคาต่อหน่วย");
@@ -543,13 +570,24 @@ export default {
         this.loadGenBill = true;
         const payload = {
           tour_id: this.tour_id,
+          quo_id: this.quo_id,
           no: this.billing.billing_note_no,
           date: dayjs(this.billing.billing_note_date).format("DD/MM/BBBB"),
           fax: this.billing.billing_note_fax,
         };
         create_data("billing", payload).then(() => {
-          this.dialog = false;
-          this.$router.push(`/paper/billing-paper?tid=${this.tour_id}`);
+          axios
+            .patch(
+              `https://back-end-tour.vercel.app/api/quotation-have-bill/${this.quo_id}`
+            )
+            .then(() => {
+              this.loadGenBill = false;
+              this.dialog = false;
+              this.$message.success("สร้างใบเสนอราคาเรียบร้อย");
+              this.$router.push(
+                `/paper/billing-paper?qid=${this.quo_id}&cid=${this.customer_id}`
+              );
+            });
         });
       }
     },
@@ -570,14 +608,25 @@ export default {
         this.loadGenBill = true;
         const payload = {
           tour_id: this.tour_id,
+          quo_id: this.quo_id,
           no: this.tax.tax_no,
           date: dayjs(this.tax.tax_date).format("DD/MM/BBBB"),
           pay_date: dayjs(this.tax.tax_pay_date).format("DD/MM/BBBB"),
           branch: this.tax.tax_branch,
         };
         create_data("tax", payload).then(() => {
-          this.dialog2 = false;
-          this.$router.push(`/paper/tax-paper?tid=${this.tour_id}`);
+          axios
+            .patch(
+              `https://back-end-tour.vercel.app/api/quotation-have-tax/${this.quo_id}`
+            )
+            .then(() => {
+              this.loadGenBill = false;
+              this.dialog2 = false;
+              this.$message.success("สร้างใบเสนอราคาเรียบร้อย");
+              this.$router.push(
+                `/paper/tax-paper?qid=${this.quo_id}&cid=${this.customer_id}`
+              );
+            });
         });
       }
     },
@@ -585,7 +634,9 @@ export default {
   data() {
     return {
       tour_id: "",
+      quo_id: "",
       tour_data: "",
+      customer_id: "",
       loading: true,
       haveQuotation: false,
       haveBilling: false,

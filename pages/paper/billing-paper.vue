@@ -1,10 +1,8 @@
 <template>
   <div
-    style="display: flex; background-color: rgb(225, 225, 241); z-index: -111"
-  >
+    style="display: flex; background-color: rgb(225, 225, 241); z-index: -111">
     <div class="page" v-if="onLoad">
       <v-container>
-
         <v-row style="margin: 2px">
           <v-col>
             <v-row
@@ -115,8 +113,7 @@
         </v-row>
 
         <v-row
-          style="padding: 1px; margin: auto; border-bottom: 1px solid black"
-        >
+          style="padding: 1px; margin: auto; border-bottom: 1px solid black">
           <v-col style="padding: 1px; height: 400px">
             <v-table density="compact" height="auto">
               <thead style="font-weight: bold; font-size: 14px">
@@ -124,8 +121,7 @@
                   style="
                     border-top: 1px solid black;
                     border-bottom: 1px solid black;
-                  "
-                >
+                  ">
                   <td class="text-center" style="font-size: xx-small">ลำดับ</td>
                   <td class="text-center" style="font-size: xx-small">
                     รหัสสินค้า
@@ -185,8 +181,7 @@
             padding-right: 4px;
             margin: auto;
             border-bottom: 1px solid black;
-          "
-        >
+          ">
           <v-col style="padding: 0" cols="9"
             ><v-table>
               <tr>
@@ -366,8 +361,7 @@
           type="text"
           id="base-input"
           v-model="billing.billing_note_no"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
       </v-col>
       <v-col>
         <label
@@ -380,8 +374,7 @@
           style="z-index: 999"
           v-model:value="billing.billing_note_date"
           class="date-picker"
-          format="DD/MM/YYYY"
-        />
+          format="DD/MM/YYYY" />
       </v-col>
       <v-col>
         <label
@@ -393,8 +386,7 @@
           type="text"
           id="base-input"
           v-model="billing.billing_note_fax"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
       </v-col>
     </v-row>
   </a-modal>
@@ -405,6 +397,7 @@ import {
   read_all_data,
   ArabicNumberToText,
   update_data,
+  read_one_data,
 } from "~~/services/pyapi";
 import locale from "ant-design-vue/es/date-picker/locale/th_TH";
 import dayjs from "dayjs";
@@ -420,6 +413,7 @@ export default defineComponent({
   },
   data() {
     return {
+      quo_id: "",
       tour_id: "",
       quo: {} as any,
       bill: {} as any,
@@ -429,26 +423,25 @@ export default defineComponent({
       billing: {
         billing_note_no: "",
         billing_note_date: "" as any,
-        billing_note_date: "" as any,
         billing_note_fax: "",
       },
       loadGenBill: false,
     };
   },
   async mounted() {
-    this.tour_id = String(this.$route.query.tid);
+    this.quo_id = String(this.$route.query.qid);
     this.$message.loading({
       content: "กำลังโหลดข้อมูลใบแจ้งหนี้ และสร้างเป็นเอกสาร",
       key,
     });
-    let q = await read_all_data(`quotations?tour_id=${this.tour_id}`);
-    this.quo = q[0];
-    let b = await read_all_data(`billings?tour_id=${this.tour_id}`);
+    this.quo = await read_one_data(`quotation`, this.quo_id);
+    this.tour_id = this.quo.tour_id;
+    let b = await read_all_data(`billings?quo_id=${this.quo_id}`);
     this.bill = b[0];
     this.billing.billing_note_no = this.bill.no;
     this.billing.billing_note_date = dayjs();
     this.billing.billing_note_fax = this.bill.fax;
-    this.prod = await read_all_data(`products?tid=${this.tour_id}`);
+    this.prod = await read_all_data(`products?cid=${this.$route.query.cid}`);
     this.onLoad = true;
     this.$message.success({
       content: "โหลดข้อมูลเรียบร้อยแล้ว",
@@ -480,6 +473,7 @@ export default defineComponent({
         this.loadGenBill = true;
         const payload = {
           tour_id: this.tour_id,
+          quo_id: this.quo_id,
           no: this.billing.billing_note_no,
           date: dayjs(this.billing.billing_note_date).format("DD/MM/BBBB"),
           fax: this.billing.billing_note_fax,
