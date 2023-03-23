@@ -2,7 +2,8 @@
   <div
     style="display: flex; background-color: rgb(225, 225, 241); z-index: -111"
   >
-    <div class="page" v-if="go">
+    <!-- v-if="go" -->
+    <div class="page">
       <v-container>
         <v-row style="margin: 2px">
           <v-col>
@@ -131,14 +132,14 @@
 
         <v-row
           style="
-            font-size: 12px;
+            font-size: 11px;
             padding-left: 4px;
             padding-right: 4px;
             margin: auto;
             border-bottom: 1px solid black;
           "
         >
-          <v-col style="padding: 0" cols="9"
+          <v-col style="padding: 0" cols="8"
             ><v-table>
               <tr>
                 <td colspan="6">&nbsp;</td>
@@ -179,7 +180,7 @@
               </tr>
             </v-table>
           </v-col>
-          <v-col style="padding: 0" cols="3"
+          <v-col style="padding: 0" cols="4"
             ><v-table style="padding-left: 20px; padding-right: 10px">
               <tr>
                 <td>&nbsp;</td>
