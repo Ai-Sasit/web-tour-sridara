@@ -154,7 +154,7 @@
             <label
               for="base-input"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >เที่ยวบินหรือพาหนะอื่นๆขาไป</label
+              >พาหนะอื่นๆ ขาไป</label
             >
             <input
               type="text"
@@ -167,7 +167,7 @@
             <label
               for="base-input"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >เที่ยวบินหรือพาหนะอื่นๆขากลับ</label
+              >พาหนะ ขากลับ</label
             >
             <input
               type="text"
@@ -175,6 +175,35 @@
               :disabled="lock_form"
               id="large-input"
               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+          </v-col>
+          <v-col>
+            <label
+              for="base-input"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >ราคาต่อหน่วย</label
+            >
+            <input
+              type="number"
+              v-model.number="tour_price"
+              :disabled="lock_form"
+              id="large-input"
+              class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+          </v-col>
+          <v-col>
+            <label
+              for="base-input"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >ภาษี (0% 7% 9%)</label
+            >
+            <select
+              style="height: 55%"
+              :disabled="lock_form"
+              v-model="tour_tax"
+              class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option value="0%">0%</option>
+              <option value="7%">7%</option>
+              <option value="9%">9%</option>
+            </select>
           </v-col>
         </v-row>
         <v-row>
@@ -297,60 +326,6 @@
       ></v-row
     >
   </div>
-
-  <a-modal v-model:visible="dialog3" title="กรุณากรอกราคาของทัวน์">
-    <template #footer>
-      <a-button key="back" @click="dialog3 = false">ยกเลิก</a-button>
-      <a-button
-        key="submit"
-        type="primary"
-        :loading="tour_programs.loading"
-        @click="onCreateQuotation"
-        >สร้าง</a-button
-      >
-    </template>
-    <v-row>
-      <v-col>
-        <label
-          for="base-input"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >ราคาต่อหน่วย</label
-        >
-        <input
-          type="text"
-          id="base-input"
-          v-model.number="tour_programs.price_per_unit"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-      </v-col>
-      <v-col>
-        <label
-          for="base-input"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >ภาษี (0% 7% 9%)</label
-        >
-        <select
-          style="height: 55%"
-          v-model="tour_programs.tax"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option value="0%">0%</option>
-          <option value="7%">7%</option>
-          <option value="9%">9%</option>
-        </select>
-      </v-col>
-      <v-col>
-        <label
-          for="base-input"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >ส่วนลด</label
-        >
-        <input
-          type="text"
-          id="base-input"
-          v-model.number="tour_programs.discount"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-      </v-col>
-    </v-row>
-  </a-modal>
 </template>
 <script lang="ts">
 import { create_data, genRanDec, read_all_data } from "~~/services/pyapi";
@@ -397,6 +372,8 @@ export default defineComponent({
         discount: 0,
         tax: "",
       },
+      tour_price: 0,
+      tour_tax: "",
     };
   },
   watch: {
@@ -461,6 +438,8 @@ export default defineComponent({
           vehicle_in: this.vehicle_in,
           vehicle_out: this.vehicle_out,
           guided_tour: this.guide_ls,
+          price: this.tour_price,
+          tax: this.tour_tax,
         };
         create_data("tour", payload).then((result) => {
           this.lock_form = true;

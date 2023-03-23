@@ -525,10 +525,11 @@ export default defineComponent({
   },
   async mounted() {
     this.tour_id = String(this.$route.params.qid);
-    this.product_ls = await read_all_data(`products?tour_id=${this.tour_id}`);
-
+    this.quo_no = String(this.$route.query.qid);
+    this.product_ls = await read_all_data(`products?quo_id=${this.quo_no}`);
+    console.log(this.quo_no);
     this.product_code = `Q-${genRanDec(10)}`;
-    const data = await read_all_data(`quotations?tour_id=${this.tour_id}`);
+    const data = await read_all_data(`quotations?no=${this.quo_no}`);
     this.quo_id = data[0].id;
     this.no = data[0].no;
     this.customer_name = data[0].customer_name;
@@ -553,6 +554,7 @@ export default defineComponent({
     return {
       tour_id: "",
       quo_id: "",
+      quo_no: "",
       no: "",
       customer_name: "",
       tax_id: "",
@@ -754,7 +756,7 @@ export default defineComponent({
         }
         const payload: any = {
           tour_id: this.tour_id,
-          customer_id: this.customer_code,
+          quo_id: this.quo_no,
           code: this.product_code,
           name: this.product_name,
           desc: "-",

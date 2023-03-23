@@ -38,11 +38,11 @@
                   </tr>
                   <tr style="height: 20px; font-size: 12px">
                     <td style="width: 50%"><b>เลขที่:</b></td>
-                    <td style="text-align: right;">{{ bill.no }}</td>
+                    <td style="text-align: right">{{ bill.no }}</td>
                   </tr>
                   <tr style="height: 20px; font-size: 12px">
                     <td><b>วันที่:</b></td>
-                    <td style="text-align: right;">{{ bill.date }}</td>
+                    <td style="text-align: right">{{ bill.date }}</td>
                   </tr>
                 </v-table>
               </v-col>
@@ -92,19 +92,21 @@
                 ><v-table style="font-size: 12px">
                   <tr style="height: 20px">
                     <td style="width: 50%"><b>รหัสลูกค้า:</b></td>
-                    <td style="text-align: right;">{{ quo.customer_code }}</td>
+                    <td style="text-align: right">{{ quo.customer_code }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ผู้เสนอขาย:</b></td>
-                    <td style="text-align: right;">{{ quo.sales_person }}</td>
+                    <td style="text-align: right">{{ quo.sales_person }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ฝ่าย:</b></td>
-                    <td style="text-align: right;">{{ quo.sale_department }}</td>
+                    <td style="text-align: right">{{ quo.sale_department }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ยืนยันราคาวันที่:</b></td>
-                    <td style="text-align: right;">{{ quo.confirm_price_within }}</td>
+                    <td style="text-align: right">
+                      {{ quo.confirm_price_within }}
+                    </td>
                   </tr>
                 </v-table></v-col
               >
@@ -441,7 +443,7 @@ export default defineComponent({
     this.billing.billing_note_no = this.bill.no;
     this.billing.billing_note_date = dayjs();
     this.billing.billing_note_fax = this.bill.fax;
-    this.prod = await read_all_data(`products?cid=${this.$route.query.cid}`);
+    this.prod = await read_all_data(`products?qid=${this.quo.no}`);
     this.onLoad = true;
     this.$message.success({
       content: "โหลดข้อมูลเรียบร้อยแล้ว",

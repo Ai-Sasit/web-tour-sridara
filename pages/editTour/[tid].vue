@@ -152,7 +152,7 @@
             <label
               for="base-input"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >เที่ยวบินหรือพาหนะอื่นๆขาไป</label
+              >พาหนะ ขาไป</label
             >
             <input
               type="text"
@@ -164,13 +164,40 @@
             <label
               for="base-input"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >เที่ยวบินหรือพาหนะอื่นๆขากลับ</label
+              >พาหนะ ขากลับ</label
             >
             <input
               type="text"
               v-model="vehicle_in"
               id="large-input"
               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+          </v-col>
+          <v-col>
+            <label
+              for="base-input"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >ราคาต่อหน่วย</label
+            >
+            <input
+              type="number"
+              v-model.number="tour_price"
+              id="large-input"
+              class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+          </v-col>
+          <v-col>
+            <label
+              for="base-input"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >ภาษี (0% 7% 9%)</label
+            >
+            <select
+              style="height: 55%"
+              v-model="tour_tax"
+              class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option value="0%">0%</option>
+              <option value="7%">7%</option>
+              <option value="9%">9%</option>
+            </select>
           </v-col>
         </v-row>
         <v-row>
@@ -336,6 +363,8 @@ export default defineComponent({
     this.back_date = tour_data.date_back;
     this.vehicle_in = tour_data.vehicle_in;
     this.vehicle_out = tour_data.vehicle_out;
+    this.tour_price = tour_data.price;
+    this.tour_tax = tour_data.tax;
     const hotel_ls = await read_all_data(`hotels?tour_id=${this.tour_id}`);
     this.formHotel.hotel_ls = hotel_ls;
 
@@ -356,6 +385,8 @@ export default defineComponent({
       back_date: "",
       vehicle_in: "",
       vehicle_out: "",
+      tour_price: 0,
+      tour_tax: "",
       g_name: "",
       g_tel: "",
       d_range: [] as any,
@@ -420,6 +451,8 @@ export default defineComponent({
           vehicle_in: this.vehicle_in,
           vehicle_out: this.vehicle_out,
           guided_tour: this.guided_ls,
+          price: this.tour_price,
+          tax: this.tour_tax,
         };
         update_data("tour", this.tour_id, payload).then((result) => {
           this.tour_id = result.id;

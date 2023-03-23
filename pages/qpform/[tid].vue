@@ -516,6 +516,7 @@ export default defineComponent({
       customer_name: "",
       tax_id: "",
       contact_name: "",
+      quo_no: "",
       customer_address: "",
       customer_code: "",
       confirm_price_within: "",
@@ -541,15 +542,11 @@ export default defineComponent({
   },
   async mounted() {
     this.tour_id = String(this.$route.params.tid);
-    this.customer_code = String(this.$route.query.cid);
-    this.product_ls = await read_all_data(`products?cid=${this.customer_code}`);
-    this.product_code = `Q-${genRanDec(10)}`;
+    this.quo_no = String(this.$route.query.cid);
 
-    const product_mounted = this.product_ls[0];
-    product_mounted.customer_id = this.customer_code;
-    const pid = this.product_ls[0].id;
-    delete product_mounted.id;
-    update_data("product", pid, product_mounted);
+    this.product_ls = await read_all_data(`products?qid=${this.quo_no}`);
+    this.product_code = `Q-${genRanDec(10)}`;
+    this.customer_code = `C-${genRanDec(8)}`;
   },
   setup() {
     const formatter = new Intl.NumberFormat("th-TH", {
@@ -673,7 +670,7 @@ export default defineComponent({
       const payload = {
         tour_id: this.tour_id,
         date: dayjs(new Date()).format("DD/MM/BBBB"),
-        no: genRanDec(5),
+        no: this.quo_no,
         customer_name: this.customer_name,
         tax_id: this.tax_id,
         contact_name: this.contact_name,

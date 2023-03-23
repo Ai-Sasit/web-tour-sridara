@@ -215,7 +215,7 @@
 
   <a-modal v-model:visible="list_quo" width="65rem" title="รายการใบเสนอราคา">
     <template #footer>
-      <a-button type="primary" @click="$router.push(`/qpform/${tour_id}`)"
+      <a-button type="primary" @click="onCreateQuotation"
         >สร้างใบเสนอราคา</a-button
       >
       <a-button type="danger" @click="list_quo = false">ปิด</a-button>
@@ -251,7 +251,7 @@
             </td>
             <td class="px-6 py-4 text-right">
               <a
-                :href="`/paper/quotation-paper?tid=${tour_id}&cid=${item.customer_code}`"
+                :href="`/paper/quotation-paper?tid=${tour_id}&cid=${item.no}`"
                 class="font-medium text-yellow-400 dark:text-yellow-400 hover:underline mr-5"
                 >ดูใบเสนอราคา</a
               >
@@ -267,8 +267,7 @@
                       >
                     </a-menu-item>
                     <a-menu-item v-else>
-                      <a
-                        :href="`/paper/billing-paper?qid=${item.id}&cid=${item.customer_code}`"
+                      <a :href="`/paper/billing-paper?qid=${item.id}`"
                         >ดูใบแจ้งหนี้</a
                       >
                     </a-menu-item>
@@ -290,7 +289,7 @@
                 title="คุณแน่ใจ?"
                 ok-text="ยืนยัน"
                 cancel-text="ยกเลิก"
-                @confirm="confirm"
+                @confirm="onDeleteQuotation(item.id)"
                 @cancel="cancel">
                 <a
                   href="#"
@@ -483,6 +482,12 @@ export default {
       this.customer_id = item.customer_code;
       this.dialog2 = true;
     },
+    onDeleteQuotation(id) {
+      delete_data("quotation", id).then((res) => {
+        this.quo_ls = this.quo_ls.filter((item) => item.id != id);
+        this.$message.success("ลบข้อมูลเรียบร้อยแล้ว");
+      });
+    },
     validateQuotation() {
       if (this.tour_program.price_per_unit == 0) {
         this.$message.error("กรุณากรอกราคาต่อหน่วย");
@@ -499,35 +504,32 @@ export default {
       return true;
     },
     onCreateQuotation() {
-      if (!this.validateQuotation()) return;
-      let total = this.tour_program.price_per_unit;
+      let total = this.tour_data.price;
       var amount = 0;
-      if (this.tour_program.tax == "7%") {
-        amount = total + total * 0.07 - this.tour_program.discount;
-      } else if (this.tour_program.tax == "9%") {
-        amount = total + total * 0.09 - this.tour_program.discount;
-      } else {
-        amount = total - this.tour_program.discount;
+      if (this.tour_data.tax == "7%") {
+        amount = total + total * 0.07;
+      } else if (this.tour_data.tax == "9%") {
+        amount = total + total * 0.09;
       }
       this.tour_program.loading = true;
-      const cid = `C-${genRanDec(10)}`;
+      const qid = genRanDec(13);
       const payload = {
         tour_id: this.tour_id,
+        quo_id: qid,
         code: `Q-${genRanDec(10)}`,
-        customer_id: cid,
         name: this.tour_data.name,
         desc: this.tour_data.program_name,
         qty: 1,
         unit: "ทัวร์",
-        price_per_unit: this.tour_program.price_per_unit,
-        discount: this.tour_program.discount,
-        tax: this.tour_program.tax,
+        price_per_unit: this.tour_data.price,
+        discount: 0,
+        tax: this.tour_data.tax,
         amount: amount,
       };
       create_data("product", payload).then(() => {
         this.tour_program.loading = false;
         this.$message.info("ไปสู่หน้าสร้างรายละเอียดใบเสนอราคา");
-        this.$router.push(`/qpform/${this.tour_id}?cid=${cid}`);
+        this.$router.push(`/qpform/${this.tour_id}?cid=${qid}`);
       });
     },
     handleDelete(name) {
@@ -586,9 +588,7 @@ export default {
               this.loadGenBill = false;
               this.dialog = false;
               this.$message.success("สร้างใบเสนอราคาเรียบร้อย");
-              this.$router.push(
-                `/paper/billing-paper?qid=${this.quo_id}&cid=${this.customer_id}`
-              );
+              this.$router.push(`/paper/billing-paper?qid=${this.quo_id}`);
             });
         });
       }
@@ -625,9 +625,7 @@ export default {
               this.loadGenBill = false;
               this.dialog2 = false;
               this.$message.success("สร้างใบเสนอราคาเรียบร้อย");
-              this.$router.push(
-                `/paper/tax-paper?qid=${this.quo_id}&cid=${this.customer_id}`
-              );
+              this.$router.push(`/paper/tax-paper?qid=${this.quo_id}`);
             });
         });
       }
