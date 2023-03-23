@@ -185,7 +185,7 @@
               :disabled="lock_form"
               color="green-accent-4"
               @click="addTourPackage"
-              >เพิ่มทัวร์</v-btn
+              >สร้างทัวร์</v-btn
             ></v-col
           >
         </v-row>
@@ -290,16 +290,70 @@
         ><v-btn
           variant="tonal"
           color="light-blue-accent-4"
-          @click="$router.push(`/addusertour/${tour_id}`)"
+          @click="$router.push(`/`)"
           :disabled="!lock_form"
-          >ไปหน้าเพิ่มลูกทัวร์</v-btn
+          >บันทึกข้อมูล</v-btn
         ></v-col
       ></v-row
     >
   </div>
+
+  <a-modal v-model:visible="dialog3" title="กรุณากรอกราคาของทัวน์">
+    <template #footer>
+      <a-button key="back" @click="dialog3 = false">ยกเลิก</a-button>
+      <a-button
+        key="submit"
+        type="primary"
+        :loading="tour_programs.loading"
+        @click="onCreateQuotation"
+        >สร้าง</a-button
+      >
+    </template>
+    <v-row>
+      <v-col>
+        <label
+          for="base-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >ราคาต่อหน่วย</label
+        >
+        <input
+          type="text"
+          id="base-input"
+          v-model.number="tour_programs.price_per_unit"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+      </v-col>
+      <v-col>
+        <label
+          for="base-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >ภาษี (0% 7% 9%)</label
+        >
+        <select
+          style="height: 55%"
+          v-model="tour_programs.tax"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="0%">0%</option>
+          <option value="7%">7%</option>
+          <option value="9%">9%</option>
+        </select>
+      </v-col>
+      <v-col>
+        <label
+          for="base-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >ส่วนลด</label
+        >
+        <input
+          type="text"
+          id="base-input"
+          v-model.number="tour_programs.discount"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+      </v-col>
+    </v-row>
+  </a-modal>
 </template>
 <script lang="ts">
-import { create_data, read_all_data } from "~~/services/pyapi";
+import { create_data, genRanDec, read_all_data } from "~~/services/pyapi";
 import { defineComponent } from "vue";
 import locale from "ant-design-vue/es/date-picker/locale/th_TH";
 import dayjs from "dayjs";
@@ -335,6 +389,13 @@ export default defineComponent({
         check_in: "",
         check_out: "",
         hotel_ls: [] as any,
+      },
+      dialog3: false,
+      tour_programs: {
+        loading: false,
+        price_per_unit: 0,
+        discount: 0,
+        tax: "",
       },
     };
   },
@@ -404,6 +465,7 @@ export default defineComponent({
         create_data("tour", payload).then((result) => {
           this.lock_form = true;
           this.tour_id = result.id;
+          this.dialog3 = true;
           this.$message.success("เพิ่มข้อมูลสำเร็จ");
         });
       }
@@ -430,6 +492,51 @@ export default defineComponent({
       }
       this.g_name = "";
       this.g_tel = "";
+    },
+    validateQuotation() {
+      if (this.tour_programs.price_per_unit == 0) {
+        this.$message.error("กรุณากรอกราคาต่อหน่วย");
+        return false;
+      }
+      if (this.tour_programs.discount < 0) {
+        this.$message.error("กรุณากรอกส่วนลด");
+        return false;
+      }
+      if (this.tour_programs.tax == "") {
+        this.$message.error("กรุณากรอกภาษี");
+        return false;
+      }
+      return true;
+    },
+    onCreateQuotation() {
+      if (!this.validateQuotation()) return;
+      let total = this.tour_programs.price_per_unit;
+      var amount = 0;
+      if (this.tour_programs.tax == "7%") {
+        amount = total + total * 0.07 - this.tour_programs.discount;
+      } else if (this.tour_programs.tax == "9%") {
+        amount = total + total * 0.09 - this.tour_programs.discount;
+      } else {
+        amount = total - this.tour_programs.discount;
+      }
+      this.tour_programs.loading = true;
+      const payload = {
+        tour_id: this.tour_id,
+        code: `Q-${genRanDec(10)}`,
+        name: this.tour_name,
+        desc: this.tour_program,
+        qty: 1,
+        unit: "ทัวร์",
+        price_per_unit: this.tour_programs.price_per_unit,
+        discount: this.tour_programs.discount,
+        tax: this.tour_programs.tax,
+        amount: amount,
+      };
+      create_data("product", payload).then(() => {
+        this.tour_programs.loading = false;
+        this.dialog3 = false;
+        this.$message.info("สร้างราคาหลักของทัวร์สำเร็จ");
+      });
     },
   },
 });

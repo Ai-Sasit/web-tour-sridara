@@ -6,6 +6,7 @@ const errorNotification = (message: string) => {
   notification.open({
     message: "API Error",
     description: message,
+    placement: "bottomRight",
     icon: () => h(WarningOutlined, { style: "color: #E53935" }),
   });
 };
@@ -21,7 +22,7 @@ export const create_data = async (collection: string, data: any) => {
     const response = await api.post(collection, data);
     return response.data;
   } catch (error: any) {
-    errorNotification(error.response.data.message);
+    errorNotification(error.message);
   }
 };
 
@@ -30,7 +31,8 @@ export const read_all_data = async (collection: string) => {
     const response = await api.get(collection);
     return response.data;
   } catch (error: any) {
-    errorNotification(error.response.data.message);
+    console.log(error);
+    errorNotification(error.message);
   }
 };
 
@@ -39,7 +41,7 @@ export const read_one_data = async (collection: string, id: string) => {
     const response = await api.get(`${collection}/${id}`);
     return response.data;
   } catch (error: any) {
-    errorNotification(error.response.data.message);
+    errorNotification(error.message);
   }
 };
 
@@ -48,7 +50,7 @@ export const delete_data = async (collection: string, id?: string) => {
     const response = await api.delete(`${collection}/${id}`);
     return response.data;
   } catch (error: any) {
-    errorNotification(error.response.data.message);
+    errorNotification(error.message);
   }
 };
 
@@ -61,7 +63,7 @@ export const update_data = async (
     const response = await api.put(`${collection}/${id}`, data);
     return response.data;
   } catch (error: any) {
-    errorNotification(error.response.data.message);
+    errorNotification(error.message);
   }
 };
 
@@ -83,7 +85,7 @@ export const ListTaxInvoice = async () => {
     const results = await Promise.all(promises);
     return results.flat().filter(onlyUnique);
   } catch (error: any) {
-    errorNotification(error.response.data.message);
+    errorNotification(error.message);
   }
 };
 

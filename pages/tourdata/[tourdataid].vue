@@ -11,146 +11,163 @@
           color="white"></v-progress-circular>
       </v-card-text>
     </v-card>
-    <div v-else class="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table
-        v-if="tour_data"
-        class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
-        style="background-color: #e8f5e9">
-        <tr>
-          <td colspan="5" class="pb-1 pt-2 px-3">
-            <h3>ชื่อทริปทัวร์ : {{ tour_data.name }}</h3>
-          </td>
-          <td colspan="2" class="pb-1 pt-2 px-3">
-            ชื่อไกด์ : {{ tour_data.guided_tour.map((v) => v.name).join(", ") }}
-          </td>
-          <td colspan="4" class="pb-1 pt-2 px-3">
-            เบอร์โทร : {{ tour_data.guided_tour.map((v) => v.tel).join(", ") }}
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" class="py-1 pt-2 px-3">
-            <h3>โปรแกรมทัวร์ : {{ tour_data.program_name }}</h3>
-          </td>
-          <td colspan="2" class="py-1 px-3">
-            จำนวน : {{ tour_data.amount_of_days }} วัน
-            {{ tour_data.amount_of_nights }} คืน
-          </td>
-          <td colspan="2" class="py-1 px-3">
-            วันที่เดือนปี {{ tour_data.date_go }} ถึง
-            {{ tour_data.date_go }}
-          </td>
-          <td colspan="4" class="py-1 px-3">
-            จำนวนลูกทัวร์ : {{ members_ls.length }}
-          </td>
-        </tr>
-
-        <tr
-          style="background-color: #e1f5fe"
-          v-for="(item, index) in hotels_ls"
-          :key="index">
-          <td colspan="3" class="py-1 px-3">
-            <h3>ชื่อโรงแรม : {{ item.name }}</h3>
-          </td>
-          <td colspan="2" class="py-1 px-3">
-            จำนวนห้องพัก : {{ item.amount_of_rooms }}
-          </td>
-          <td colspan="2" class="py-1 px-3">
-            วันที่เช็คอินน์ : {{ item.check_in }}
-          </td>
-          <td colspan="4" class="py-1 px-3">
-            วันที่เช็คเอ้าท์ : {{ item.check_out }}
-          </td>
-        </tr>
-
-        <tr>
-          <td colspan="5" class="py-1 px-3">
-            <h3>
-              เที่ยวบินหรือพาหนะอื่น ๆ ขาไป :
-              {{ tour_data.vehicle_in }}
-            </h3>
-          </td>
-          <td colspan="5" class="py-1 px-3">
-            <h3>
-              เที่ยวบินหรือพาหนะอื่น ๆ ขากลับ :
-              {{ tour_data.vehicle_out }}
-            </h3>
-          </td>
-        </tr>
-      </table>
-      <table
-        class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
-        :style="
-          members_ls.length >= 10
-            ? { 'max-height': '400px', 'margin-bottom': '2.5rem' }
-            : { 'max-height': '400px' }
-        ">
-        <thead
-          class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400"
-          style="background-color: #81c784">
+    <div v-else>
+      <v-tooltip location="left">
+        <template v-slot:activator="{ props }">
+          <v-btn
+            icon
+            @click="$router.push(`/edittour/${tour_data.id}`)"
+            style="position: absolute; right: 0.2rem; top: 4.5rem; z-index: 999"
+            color="blue-accent-3"
+            v-bind="props">
+            <v-icon> mdi-text-box-edit </v-icon>
+          </v-btn>
+        </template>
+        <span>แก้ไขข้อมูลทัวร์ หรือ เพิ่มโรงแรม</span>
+      </v-tooltip>
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table
+          v-if="tour_data"
+          class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+          style="background-color: #e8f5e9">
           <tr>
-            <th scope="col" class="px-6 py-3">ลำดับ</th>
-            <th scope="col" class="px-6 py-3">ชื่อ-นามสกุลภาษาไทย</th>
-            <th scope="col" class="px-6 py-3">หมายเลขบัตรประชาชน</th>
-            <th scope="col" class="px-6 py-3">ชื่อ-นามสกุลภาษาอังกฤษ</th>
-            <th scope="col" class="px-6 py-3">หมายเลขพาสปอร์ต</th>
-            <th scope="col" class="px-6 py-3">วันที่ออก</th>
-            <th scope="col" class="px-6 py-3">วันที่หมด</th>
-            <th scope="col" class="px-6 py-3">ว/ด/ป เกิด</th>
-            <th scope="col" class="px-6 py-3">สัญชาต</th>
-            <th scope="col" class="px-6 py-3">เพศ</th>
-            <th scope="col" class="px-6 py-3">ประเภทเตียง</th>
-            <th scope="col" class="px-6 py-3">ตรวจลงตราเลขที</th>
-          </tr>
-        </thead>
-        <tbody v-if="!members_ls.length">
-          <tr>
-            <td class="px-6 py-4" colspan="12" style="text-align: center">
-              ไม่มีข้อมูล
+            <td colspan="5" class="pb-1 pt-2 px-3">
+              <h3>ชื่อทริปทัวร์ : {{ tour_data.name }}</h3>
+            </td>
+            <td colspan="2" class="pb-1 pt-2 px-3">
+              ชื่อไกด์ :
+              {{ tour_data.guided_tour.map((v) => v.name).join(", ") }}
+            </td>
+            <td colspan="4" class="pb-1 pt-2 px-3">
+              เบอร์โทร :
+              {{ tour_data.guided_tour.map((v) => v.tel).join(", ") }}
             </td>
           </tr>
-        </tbody>
-        <tbody v-if="members_ls.length">
+          <tr>
+            <td colspan="3" class="py-1 pt-2 px-3">
+              <h3>โปรแกรมทัวร์ : {{ tour_data.program_name }}</h3>
+            </td>
+            <td colspan="2" class="py-1 px-3">
+              จำนวน : {{ tour_data.amount_of_days }} วัน
+              {{ tour_data.amount_of_nights }} คืน
+            </td>
+            <td colspan="2" class="py-1 px-3">
+              วันที่เดือนปี {{ tour_data.date_go }} ถึง
+              {{ tour_data.date_go }}
+            </td>
+            <td colspan="4" class="py-1 px-3">
+              จำนวนลูกทัวร์ : {{ members_ls.length }}
+            </td>
+          </tr>
+
           <tr
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-            v-for="(item, index) in members_ls"
+            style="background-color: #e1f5fe"
+            v-for="(item, index) in hotels_ls"
             :key="index">
-            <td class="px-6 py-4" style="font-size: 13px">{{ index + 1 }}</td>
-            <td class="px-6 py-4" style="font-size: 13px">
-              {{ item.thai_name }}
+            <td colspan="3" class="py-1 px-3">
+              <h3>ชื่อโรงแรม : {{ item.name }}</h3>
             </td>
-            <td class="px-6 py-4" style="font-size: 13px">
-              {{ item.national_id }}
+            <td colspan="2" class="py-1 px-3">
+              จำนวนห้องพัก : {{ item.amount_of_rooms }}
             </td>
-            <td class="px-6 py-4" style="font-size: 13px">
-              {{ item.eng_name }}
+            <td colspan="2" class="py-1 px-3">
+              วันที่เช็คอินน์ : {{ item.check_in }}
             </td>
-            <td class="px-6 py-4" style="font-size: 13px">
-              {{ item.passport_no }}
-            </td>
-            <td class="px-6 py-4" style="font-size: 13px">
-              {{ item.passport_issue }}
-            </td>
-            <td class="px-6 py-4" style="font-size: 13px">
-              {{ item.passport_exp }}
-            </td>
-            <td class="px-6 py-4" style="font-size: 13px">
-              {{ item.date_of_birth }}
-            </td>
-            <td class="px-6 py-4" style="font-size: 13px">
-              {{ item.nationality }}
-            </td>
-            <td class="px-6 py-4" style="font-size: 13px">
-              {{ item.gender }}
-            </td>
-            <td class="px-6 py-4" style="font-size: 13px">
-              {{ item.bed_type }}
-            </td>
-            <td class="px-6 py-4" style="font-size: 13px">
-              {{ item.stamp_no }}
+            <td colspan="4" class="py-1 px-3">
+              วันที่เช็คเอ้าท์ : {{ item.check_out }}
             </td>
           </tr>
-        </tbody>
-      </table>
+
+          <tr>
+            <td colspan="5" class="py-1 px-3">
+              <h3>
+                เที่ยวบินหรือพาหนะอื่น ๆ ขาไป :
+                {{ tour_data.vehicle_in }}
+              </h3>
+            </td>
+            <td colspan="5" class="py-1 px-3">
+              <h3>
+                เที่ยวบินหรือพาหนะอื่น ๆ ขากลับ :
+                {{ tour_data.vehicle_out }}
+              </h3>
+            </td>
+          </tr>
+        </table>
+        <table
+          class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+          :style="
+            members_ls.length >= 10
+              ? { 'max-height': '400px', 'margin-bottom': '2.5rem' }
+              : { 'max-height': '400px' }
+          ">
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400"
+            style="background-color: #81c784">
+            <tr>
+              <th scope="col" class="px-6 py-3">ลำดับ</th>
+              <th scope="col" class="px-6 py-3">ชื่อ-นามสกุลภาษาไทย</th>
+              <th scope="col" class="px-6 py-3">หมายเลขบัตรประชาชน</th>
+              <th scope="col" class="px-6 py-3">ชื่อ-นามสกุลภาษาอังกฤษ</th>
+              <th scope="col" class="px-6 py-3">หมายเลขพาสปอร์ต</th>
+              <th scope="col" class="px-6 py-3">วันที่ออก</th>
+              <th scope="col" class="px-6 py-3">วันที่หมด</th>
+              <th scope="col" class="px-6 py-3">ว/ด/ป เกิด</th>
+              <th scope="col" class="px-6 py-3">สัญชาต</th>
+              <th scope="col" class="px-6 py-3">เพศ</th>
+              <th scope="col" class="px-6 py-3">ประเภทเตียง</th>
+              <th scope="col" class="px-6 py-3">ตรวจลงตราเลขที</th>
+            </tr>
+          </thead>
+          <tbody v-if="!members_ls.length">
+            <tr>
+              <td class="px-6 py-4" colspan="12" style="text-align: center">
+                ไม่มีข้อมูล
+              </td>
+            </tr>
+          </tbody>
+          <tbody v-if="members_ls.length">
+            <tr
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              v-for="(item, index) in members_ls"
+              :key="index">
+              <td class="px-6 py-4" style="font-size: 13px">{{ index + 1 }}</td>
+              <td class="px-6 py-4" style="font-size: 13px">
+                {{ item.thai_name }}
+              </td>
+              <td class="px-6 py-4" style="font-size: 13px">
+                {{ item.national_id }}
+              </td>
+              <td class="px-6 py-4" style="font-size: 13px">
+                {{ item.eng_name }}
+              </td>
+              <td class="px-6 py-4" style="font-size: 13px">
+                {{ item.passport_no }}
+              </td>
+              <td class="px-6 py-4" style="font-size: 13px">
+                {{ item.passport_issue }}
+              </td>
+              <td class="px-6 py-4" style="font-size: 13px">
+                {{ item.passport_exp }}
+              </td>
+              <td class="px-6 py-4" style="font-size: 13px">
+                {{ item.date_of_birth }}
+              </td>
+              <td class="px-6 py-4" style="font-size: 13px">
+                {{ item.nationality }}
+              </td>
+              <td class="px-6 py-4" style="font-size: 13px">
+                {{ item.gender }}
+              </td>
+              <td class="px-6 py-4" style="font-size: 13px">
+                {{ item.bed_type }}
+              </td>
+              <td class="px-6 py-4" style="font-size: 13px">
+                {{ item.stamp_no }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
   <v-row
@@ -191,8 +208,8 @@
           style="margin-right: 1rem"
           variant="tonal"
           color="light-blue-accent-4"
-          @click="dialog3 = true"
-          >สร้างใบเสนอราคา</v-btn
+          @click="list_quo = true"
+          >จัดการใบเสนอราคา</v-btn
         >
 
         <v-btn
@@ -232,18 +249,22 @@
           variant="tonal"
           @click="$router.push(`/addusertour/${tour_id}`)"
           color="yellow-darken-4"
-          >แก้ไขข้อมูลลูกทัวร์</v-btn
+          >จัดการข้อมูลลูกทัวร์</v-btn
         >
-        <v-btn
-          style="margin-right: 1rem"
-          @click="$router.push(`/edittour/${tour_id}`)"
-          variant="tonal"
-          color="cyan-darken-4"
-          >แก้ไขข้อมูลทัวร์</v-btn
-        ></v-row
-      ></v-col
+      </v-row></v-col
     >
   </v-row>
+
+  <a-modal v-model:visible="list_quo" title="Title" @ok="handleOk">
+    <template #footer>
+      <a-button key="submit" type="primary" @click="handleOk">ปิด</a-button>
+    </template>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+  </a-modal>
 
   <a-modal v-model:visible="dialog" title="ฟอร์มสร้างใบแจ้งหนี้/ใบวางบิล">
     <template #footer>
@@ -541,7 +562,7 @@ export default {
       haveTax: false,
       dialog: false,
       dialog2: false,
-      dialog3: false,
+      list_quo: false,
       loadGenBill: false,
       members_ls: [],
       hotels_ls: [],
