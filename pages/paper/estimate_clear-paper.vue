@@ -25,6 +25,7 @@
                   <tr style="text-align: center">
                     <td colspan="2">
                       <b style="font-size: 14px">ใบเคลียร์ประมาณการเงินสดย่อย</b>
+                      <div>Estimate Clearing</div>
                     </td>
                   </tr>
                   <tr style="height: 20px; font-size: 12px">

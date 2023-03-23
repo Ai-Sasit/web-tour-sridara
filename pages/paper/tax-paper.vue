@@ -71,14 +71,8 @@
                     </td>
                     <td>{{ quo.tax_id }}</td>
                   </tr>
-                  <tr
-                    style="
-                      border-top: 1px solid lightgray;
-                      border-bottom: 1px solid lightgray;
-                      height: 30px;
-                    "
-                  >
-                    <td colspan="2">
+                  <tr style="height: 40px;">
+                    <td style="width: 40%">
                       <input
                         type="checkbox"
                         class="ml-5 mr-2"
@@ -95,7 +89,7 @@
                       />
                       <label for="vehicle3"> สำนักงานใหญ่</label>
                     </td>
-                    <td colspan="2">
+                    <td>
                       <input
                         type="checkbox"
                         class="mr-2"
