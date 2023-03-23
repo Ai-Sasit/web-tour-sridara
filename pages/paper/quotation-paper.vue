@@ -39,11 +39,11 @@
                   </tr>
                   <tr style="height: 20px; font-size: 12px">
                     <td style="width: 50%"><b>เลขที่:</b></td>
-                    <td>145447888246{{ quo.no }}</td>
+                    <td style="text-align: right">{{ quo.no }}</td>
                   </tr>
                   <tr style="height: 20px; font-size: 12px">
                     <td><b>วันที่:</b></td>
-                    <td>02/05/66{{ quo.date }}</td>
+                    <td style="text-align: right">{{ quo.date }}</td>
                   </tr>
                 </v-table>
               </v-col>
@@ -56,36 +56,38 @@
                       <b>ชื่อลูกค้า: </b>
                     </td>
                     <td style="text-align: left">
-                      หนูนัน วันดี{{ quo.customer_name }}
+                      {{ quo.customer_name }}
                     </td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
                       <b>ชื่อผู้ติดต่อ: </b>
                     </td>
-                    <td>หมี{{ quo.contact_name }}</td>
+                    <td>{{ quo.contact_name }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ที่อยู่: </b></td>
-                    <td>20-22 ม.2 ต.โพธิ์กระัสังข์{{ quo.address }}</td>
+                    <td>
+                      {{ quo.address }}
+                    </td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
                       <b>ID TAX: </b>
                     </td>
-                    <td>254211554{{ quo.tax_id }}</td>
+                    <td>{{ quo.tax_id }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
                       <b>โทร: </b>
                     </td>
-                    <td>0969128748{{ quo.customer_tel }}</td>
+                    <td>{{ quo.customer_tel }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
                       <b>Email: </b>
                     </td>
-                    <td>Srisantisang2515@gmail.com{{ quo.email }}</td>
+                    <td>{{ quo.email }}</td>
                   </tr>
                 </v-table></v-col
               >
@@ -93,23 +95,33 @@
                 ><v-table style="font-size: 12px">
                   <tr style="height: 20px">
                     <td style="width: 50%"><b>รหัสลูกค้า:</b></td>
-                    <td>123456789{{ quo.customer_code }}</td>
+                    <td style="text-align: right">
+                      {{ quo.customer_code }}
+                    </td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ผู้เสนอขาย:</b></td>
-                    <td>หนูนา{{ quo.sales_person }}</td>
+                    <td style="text-align: right">
+                      {{ quo.sales_person }}
+                    </td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ฝ่าย:</b></td>
-                    <td>ขาย{{ quo.sale_department }}</td>
+                    <td style="text-align: right">
+                      {{ quo.sale_department }}
+                    </td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>ยืนยันราคาภายใน:</b></td>
-                    <td>28/06/66{{ quo.confirm_price_within }}</td>
+                    <td style="text-align: right">
+                      {{ quo.confirm_price_within }}
+                    </td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>วันส่งของ:</b></td>
-                    <td>29/07/66{{ quo.delivery_date }}</td>
+                    <td style="text-align: right">
+                      {{ quo.delivery_date }}
+                    </td>
                   </tr>
                 </v-table></v-col
               >

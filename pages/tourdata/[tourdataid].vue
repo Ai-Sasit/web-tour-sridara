@@ -196,55 +196,13 @@
     <v-col style="display: flex; align-items: center">
       <v-row justify="end">
         <v-btn
-          v-if="haveQuotation"
-          style="margin-right: 1rem"
-          variant="tonal"
-          color="light-blue-accent-4"
-          @click="$router.push(`/paper/quotation-paper?tid=${tour_id}`)"
-          >ดูใบเสนอราคา</v-btn
-        >
-        <v-btn
-          v-else
           style="margin-right: 1rem"
           variant="tonal"
           color="light-blue-accent-4"
           @click="list_quo = true"
           >จัดการใบเสนอราคา</v-btn
         >
-
         <v-btn
-          v-if="haveQuotation && !haveBilling"
-          style="margin-right: 1rem"
-          variant="tonal"
-          color="light-blue-accent-4"
-          @click="dialog = true"
-          >สร้างใบแจ้งหนี้</v-btn
-        >
-
-        <v-btn
-          v-else-if="haveQuotation && haveBilling"
-          style="margin-right: 1rem"
-          variant="tonal"
-          color="light-blue-accent-4"
-          @click="$router.push(`/paper/billing-paper?tid=${tour_id}`)"
-          >ดูใบแจ้งหนี้</v-btn
-        >
-
-        <v-btn
-          variant="tonal"
-          style="margin-right: 1rem"
-          color="light-blue-accent-4"
-          v-if="haveBilling && haveQuotation && !haveTax"
-          @click="dialog2 = true"
-          >สร้างใบกำกับภาษี</v-btn
-        ><v-btn
-          variant="tonal"
-          style="margin-right: 1rem"
-          color="light-blue-accent-4"
-          v-else-if="haveBilling && haveQuotation && haveTax"
-          @click="$router.push(`/paper/tax-paper?tid=${this.tour_id}`)"
-          >ดูใบกำกับภาษี</v-btn
-        ><v-btn
           style="margin-right: 1rem"
           variant="tonal"
           @click="$router.push(`/addusertour/${tour_id}`)"
@@ -255,15 +213,80 @@
     >
   </v-row>
 
-  <a-modal v-model:visible="list_quo" title="Title" @ok="handleOk">
+  <a-modal v-model:visible="list_quo" width="65rem" title="รายการใบเสนอราคา">
     <template #footer>
-      <a-button key="submit" type="primary" @click="handleOk">ปิด</a-button>
+      <a-button type="primary" @click="$router.push(`/qpform/${tour_id}`)"
+        >สร้างใบเสนอราคา</a-button
+      >
+      <a-button type="danger" @click="list_quo = false">ปิด</a-button>
     </template>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
+
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead
+          class="text-xs uppercase bg-green-800 dark:bg-gray-700"
+          style="color: white">
+          <tr>
+            <th scope="col" class="px-6 py-3">ชื่อลูกค้า</th>
+            <th scope="col" class="px-6 py-3">จำนวนคน</th>
+            <th scope="col" class="px-6 py-3">วันที่สร้างล่าสุด</th>
+            <th scope="col" class="px-6 py-3">ราคาเสนอ</th>
+            <th scope="col" class="px-6 py-3 text-right">ฟังก์ชั่น</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+            v-for="(item, index) in quo_ls"
+            :key="index">
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              {{ item.customer_name }}
+            </th>
+            <td class="px-6 py-4">{{ item.sales_person }}</td>
+            <td class="px-6 py-4">{{ item.date }}</td>
+            <td class="px-6 py-4">
+              {{ formatter.format(item.total_net_price) }}
+            </td>
+            <td class="px-6 py-4 text-right">
+              <a
+                href="#"
+                class="font-medium text-yellow-400 dark:text-yellow-400 hover:underline mr-5"
+                >ดูใบเสนอราคา</a
+              >
+              <a-dropdown>
+                <a class="ant-dropdown-link text-blue-600 mr-5" @click.prevent>
+                  สร้างใบอื่นๆ
+                </a>
+                <template #overlay>
+                  <a-menu>
+                    <a-menu-item>
+                      <a href="javascript:;">ใบแจ้งหนี้</a>
+                    </a-menu-item>
+                    <a-menu-item>
+                      <a href="javascript:;">ใบกำกับภาษี</a>
+                    </a-menu-item>
+                  </a-menu>
+                </template>
+              </a-dropdown>
+              <a-popconfirm
+                title="คุณแน่ใจ?"
+                ok-text="ยืนยัน"
+                cancel-text="ยกเลิก"
+                @confirm="confirm"
+                @cancel="cancel">
+                <a
+                  href="#"
+                  class="font-medium text-red-600 dark:text-red-500 hover:underline"
+                  >ลบ</a
+                ></a-popconfirm
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </a-modal>
 
   <a-modal v-model:visible="dialog" title="ฟอร์มสร้างใบแจ้งหนี้/ใบวางบิล">
@@ -389,6 +412,7 @@
 
 <script>
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { DownOutlined } from "@ant-design/icons-vue";
 import {
   read_all_data,
   read_one_data,
@@ -402,8 +426,13 @@ import buddhistEra from "dayjs/plugin/buddhistEra";
 dayjs.extend(buddhistEra);
 export default {
   setup() {
+    const formatter = new Intl.NumberFormat("th-TH", {
+      minimumFractionDigits: 2,
+    });
     return {
+      formatter,
       locale,
+      DownOutlined,
     };
   },
   async mounted() {
@@ -414,6 +443,7 @@ export default {
     const quo_res = await read_all_data(`quotations?tour_id=${this.tour_id}`);
     const bill_res = await read_all_data(`billings?tour_id=${this.tour_id}`);
     const tax_res = await read_all_data(`taxes?tour_id=${this.tour_id}`);
+    this.quo_ls = quo_res;
     quo_res.length ? (this.haveQuotation = true) : (this.haveQuotation = false);
     bill_res.length ? (this.haveBilling = true) : (this.haveBilling = false);
     tax_res.length ? (this.haveTax = true) : (this.haveTax = false);
@@ -566,6 +596,7 @@ export default {
       loadGenBill: false,
       members_ls: [],
       hotels_ls: [],
+      quo_ls: [],
       tour_program: {
         loading: false,
         price_per_unit: 0,
