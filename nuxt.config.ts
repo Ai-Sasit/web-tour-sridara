@@ -2,11 +2,21 @@
 export default defineNuxtConfig({
   app: {
     head: {
-      script: [
+      title: "Sridara Tour BackOffice",
+      meta: [
+        { charset: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
         {
-          hid: "cloudflare",
-          src: "https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/datepicker.min.js",
-          defer: true,
+          hid: "description",
+          name: "description",
+          content: "ระบบจัดการข้อมูลทัวร์ Powered by FinSoft",
+        },
+      ],
+      link: [
+        {
+          rel: "icon",
+          type: "image/x-icon",
+          href: "/favicon.ico",
         },
       ],
     },

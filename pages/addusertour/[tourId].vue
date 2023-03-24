@@ -473,7 +473,7 @@ export default defineComponent({
   margin: 1rem;
 }
 .date-picker {
-  height: 4.7vmin;
+  height: 33.6px;
   background-color: #f9fafb;
   border-radius: 0.4rem;
   width: 100%;
