@@ -357,6 +357,7 @@ export default defineComponent({
           read_all_data(`estimate_lists?no=${this.no}`).then((result) => {
             this.esitmate_ls = result;
             this.addLoading = false;
+            this.$router.push(`/tourdata/${this.tour_id}`);
           });
           this.esitmate_detail = {
             desc: "",

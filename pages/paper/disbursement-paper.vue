@@ -100,10 +100,10 @@
                   <td class="text-center" style="font-size: xx-small">
                     รายละเอียดค่าใช้จ่าย
                   </td>
-                  <td class="text-center" style="font-size: xx-small">ราคา</td>
                   <td class="text-center" style="font-size: xx-small">
-                    ค่าใช้จ่าย
+                    ประเภทค่าใช้จ่าย
                   </td>
+                  <td class="text-center" style="font-size: xx-small">ราคา</td>
                   <td class="text-center" style="font-size: xx-small">จำนวน</td>
                   <td class="text-center" style="font-size: xx-small">
                     ยอดสุทธิ
@@ -111,17 +111,25 @@
                 </tr>
               </thead>
               <tbody style="font-weight: normal; font-size: 14px">
-                <tr>
-                  <td class="text-center" style="font-size: xx-small">1</td>
+                <tr v-for="(item, index) in est_ls" :key="index">
                   <td class="text-center" style="font-size: xx-small">
-                    เดินทางไปเชียงใหม่ 3 วัน 2 คืน
+                    {{ index + 1 }}
                   </td>
-                  <td class="text-center" style="font-size: xx-small">29990</td>
                   <td class="text-center" style="font-size: xx-small">
-                    เบี้ยเลี้ยง, ค่าที่พัก, ค่ายานพาหนะ, ค่าน้ำมัน, อื่นๆ
+                    {{ item.desc }}
                   </td>
-                  <td class="text-center" style="font-size: xx-small">20000</td>
-                  <td class="text-center" style="font-size: xx-small">20000</td>
+                  <td class="text-center" style="font-size: xx-small">
+                    {{ item.type }}
+                  </td>
+                  <td class="text-center" style="font-size: xx-small">
+                    {{ item.price_per_unit }}
+                  </td>
+                  <td class="text-center" style="font-size: xx-small">
+                    {{ item.qty }}
+                  </td>
+                  <td class="text-center" style="font-size: xx-small">
+                    {{ item.total }}
+                  </td>
                 </tr>
               </tbody>
             </v-table>
@@ -303,6 +311,9 @@ export default defineComponent({
       this.estimate = res[0];
       this.onLoad = true;
     });
+    read_all_data(`estimate_lists?no=${this.no}`).then((res) => {
+      this.est_ls = res;
+    });
   },
   data() {
     return {
@@ -310,6 +321,7 @@ export default defineComponent({
       no: "",
       tour_id: "",
       estimate: {},
+      est_ls: [],
     };
   },
   methods: {

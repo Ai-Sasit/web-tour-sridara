@@ -324,8 +324,8 @@
     <template #footer>
       <a-button
         type="primary"
-        @click="$route.push(`/withdraw/add_estiamte?tour_id=${tour_id}`)"
-        >สร้างใบเสนอราคา</a-button
+        @click="$router.push(`/withdraw/add_estimate?tour_id=${tour_id}`)"
+        >สร้างใบเบิกค่าใช้จ่าย</a-button
       >
       <a-button type="danger" @click="list_cash = false">ปิด</a-button>
     </template>
