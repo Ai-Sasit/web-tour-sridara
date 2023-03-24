@@ -333,10 +333,10 @@ export default defineComponent({
         let data = {
           tour_id: this.tour_id,
           no: this.no,
-          date: dayjs(new Date()).format("YYYY-MM-DD"),
+          date: dayjs(new Date()).format("DD/MM/BBBB"),
           withdrawer_name: this.withdrawer_name,
           withdrawer_position: this.withdrawer_positions,
-          date_want_pay: this.date_want_pay,
+          date_want_pay: dayjs(this.date_want_pay).format("DD/MM/BBBB"),
           objective: this.objective,
           tour_name: this.tour_detail.name,
           total_price: this.sumTotalPrice(),

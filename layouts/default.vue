@@ -33,6 +33,11 @@
               >
             </li>
             <li>
+              <v-btn variant="flat" @click="$router.push('/dashboard')"
+                >รายงาน</v-btn
+              >
+            </li>
+            <li>
               <v-btn variant="flat" @click="$router.push('/createreceipt')"
                 >สร้างใบเสร็จรับเงิน</v-btn
               >
