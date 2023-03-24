@@ -816,7 +816,7 @@ export default defineComponent({
           .then((res) => {
             this.$message.success("อัพเดทใบเสนอราคาสำเร็จ", 3);
             this.$router.push(
-              `/paper/quotation-paper?tid=${this.tour_id}&cid=${this.customer_code}`
+              `/paper/quotation-paper?tid=${this.tour_id}&cid=${this.no}`
             );
           })
           .catch((err) => {

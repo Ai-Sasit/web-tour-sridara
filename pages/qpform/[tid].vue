@@ -695,7 +695,9 @@ export default defineComponent({
       if (this.validateQuotationDetail()) {
         create_data("quotation", payload).then((result) => {
           this.$message.success("เพิ่มใบเสนอราคาสำเร็จ", 3);
-          this.$router.push(`/paper/quotation-paper?tid=${this.tour_id}`);
+          this.$router.push(
+            `/paper/quotation-paper?tid=${this.tour_id}&cid=${this.quo_no}`
+          );
         });
       }
     },

@@ -344,6 +344,7 @@ export default defineComponent({
         };
         create_data("estimate", data).then(() => {
           this.$message.success("บันทึกข้อมูลสำเร็จ");
+          this.$router.push(`/tourdata/${this.tour_id}`);
         });
       }
     },
@@ -357,7 +358,6 @@ export default defineComponent({
           read_all_data(`estimate_lists?no=${this.no}`).then((result) => {
             this.esitmate_ls = result;
             this.addLoading = false;
-            this.$router.push(`/tourdata/${this.tour_id}`);
           });
           this.esitmate_detail = {
             desc: "",
