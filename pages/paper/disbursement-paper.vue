@@ -1,7 +1,6 @@
 <template>
   <div
-    style="display: flex; background-color: rgb(225, 225, 241); z-index: -111"
-  >
+    style="display: flex; background-color: rgb(225, 225, 241); z-index: -111">
     <div class="page">
       <v-container>
         <v-row style="margin: 2px">
@@ -39,11 +38,11 @@
                   </tr>
                   <tr style="height: 20px; font-size: 12px">
                     <td style="width: 50%"><b>เลขที่:</b></td>
-                    <td style="text-align: right">15874875587</td>
+                    <td style="text-align: right">{{ estimate.no }}</td>
                   </tr>
                   <tr style="height: 20px; font-size: 12px">
                     <td><b>วันที่:</b></td>
-                    <td style="text-align: right">09/05/66</td>
+                    <td style="text-align: right">{{ estimate.date }}</td>
                   </tr>
                 </v-table>
               </v-col>
@@ -55,17 +54,19 @@
                     <td style="width: 55%">
                       <b>ชื่อผู้ขอเบิก: </b>
                     </td>
-                    <td style="text-align: left">สมัย ใจป้ำ</td>
+                    <td style="text-align: left">
+                      {{ estimate.withdrawer_name }}
+                    </td>
                   </tr>
                   <tr style="height: 20px">
                     <td>
                       <b>แผนก: </b>
                     </td>
-                    <td>จัดการคลังสินค้า</td>
+                    <td>{{ estimate.withdrawer_position }}</td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>วัตถุประสงค์การยืมเงินทดลองจ่าย: </b></td>
-                    <td>อยากลองระบบ</td>
+                    <td>{{ estimate.objective }}</td>
                   </tr>
                 </v-table>
               </v-col>
@@ -73,11 +74,15 @@
                 ><v-table style="font-size: 12px">
                   <tr style="height: 20px">
                     <td style="width: 50%"><b>วันที่ต้องการใช้เงิน:</b></td>
-                    <td style="text-align: right">03/07/66</td>
+                    <td style="text-align: right">
+                      {{ estimate.date_want_pay }}
+                    </td>
                   </tr>
                   <tr style="height: 20px">
                     <td><b>โครงการ:</b></td>
-                    <td style="text-align: right">เงินผู้สูงอายุ</td>
+                    <td style="text-align: right">
+                      {{ estimate.tour_name }}
+                    </td>
                   </tr>
                 </v-table></v-col
               >
@@ -86,8 +91,7 @@
         </v-row>
 
         <v-row
-          style="padding: 1px; margin: auto; border-bottom: 1px solid black"
-        >
+          style="padding: 1px; margin: auto; border-bottom: 1px solid black">
           <v-col style="padding: 1px; height: 400px">
             <v-table density="compact" height="auto">
               <thead style="font-weight: bold; font-size: 14px">
@@ -131,19 +135,23 @@
             padding-right: 4px;
             margin: auto;
             border-bottom: 1px solid black;
-          "
-        >
+          ">
           <v-col style="padding: 0" cols="9"
             ><v-table>
               <tr>
                 <td colspan="6">&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="6">ตัวหนังสือ: &nbsp;ห้าพันหกร้อยบาทถ้วน&nbsp;</td>
+                <td colspan="6">
+                  ตัวหนังสือ: &nbsp;{{
+                    ArabicNumberToText(estimate.total_price)
+                  }}&nbsp;
+                </td>
               </tr>
               <tr>
                 <td colspan="6">
-                  ผู้อนุมัติ (แบบอิเล็กทอรนิกส์): &nbsp; ใครสักคนนึง &nbsp;
+                  ผู้อนุมัติ (แบบอิเล็กทอรนิกส์): &nbsp;
+                  {{ estimate.approve_name }} &nbsp;
                 </td>
               </tr>
               <tr>
@@ -170,7 +178,9 @@
               </tr>
               <tr>
                 <td><b>รวมสุทธิ</b></td>
-                <td style="text-align: right">50000 บาท</td>
+                <td style="text-align: right">
+                  {{ estimate.total_price }} บาท
+                </td>
               </tr>
 
               <tr>
@@ -273,57 +283,41 @@
     ></v-row
   >
 </template>
-
-//
 <script lang="ts">
-// import dayjs from "dayjs";
-// import { defineComponent } from "vue";
-// import buddhistEra from "dayjs/plugin/buddhistEra";
-// import {
-//   read_one_data_conditions,
-//   ArabicNumberToText,
-// } from "~~/services/configs";
-// export default defineComponent({
-//   setup() {
-//     dayjs.extend(buddhistEra);
-//     return {
-//       dayjs,
-//       ArabicNumberToText,
-//     };
-//   },
-//   mounted() {
-//     const obj = JSON.parse(String(this.$route.query.data));
-//     this.ob = obj;
-
-//     this.last_total = obj.tax_invoice.reduce(
-//       (a: any, b: any) => Number(a) + Number(b.total),
-//       0
-//     );
-//     console.log(this.last_total);
-//     read_one_data_conditions(
-//       "quotation_detail",
-//       "tour_id",
-//       obj.tax_invoice[0].tour_id
-//     ).then((res) => {
-//       this.onLoad = true;
-//       this.quo = res[0].fields;
-//     });
-//   },
-//   data() {
-//     return {
-//       onLoad: false,
-//       quo: {} as any,
-//       ob: {} as any,
-//       last_total: 0,
-//     };
-//   },
-//   methods: {
-//     print() {
-//       window.print();
-//     },
-//   },
-// });
-//
+import dayjs from "dayjs";
+import { defineComponent } from "vue";
+import buddhistEra from "dayjs/plugin/buddhistEra";
+import { read_all_data, ArabicNumberToText } from "~~/services/pyapi";
+export default defineComponent({
+  setup() {
+    dayjs.extend(buddhistEra);
+    return {
+      dayjs,
+      ArabicNumberToText,
+    };
+  },
+  mounted() {
+    this.no = String(this.$route.query.cid);
+    this.tour_id = String(this.$route.query.tid);
+    read_all_data(`estimates?no=${this.no}`).then((res) => {
+      this.estimate = res[0];
+      this.onLoad = true;
+    });
+  },
+  data() {
+    return {
+      onLoad: false,
+      no: "",
+      tour_id: "",
+      estimate: {},
+    };
+  },
+  methods: {
+    print() {
+      window.print();
+    },
+  },
+});
 </script>
 
 <style scope>

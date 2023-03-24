@@ -197,6 +197,19 @@
       <v-row justify="end">
         <v-btn
           style="margin-right: 1rem"
+          @click="list_cash = true"
+          variant="tonal"
+          color="light-blue-accent-4"
+          >จัดการใบเบิกค่าใช้จ่าย</v-btn
+        >
+        <v-btn
+          style="margin-right: 1rem"
+          variant="tonal"
+          color="light-blue-accent-4"
+          >จัดการใบเคียร์ประมาณการเงินสดย่อย</v-btn
+        >
+        <v-btn
+          style="margin-right: 1rem"
           variant="tonal"
           color="light-blue-accent-4"
           @click="list_quo = true"
@@ -285,6 +298,72 @@
                   </a-menu>
                 </template>
               </a-dropdown>
+              <a-popconfirm
+                title="คุณแน่ใจ?"
+                ok-text="ยืนยัน"
+                cancel-text="ยกเลิก"
+                @confirm="onDeleteQuotation(item.id)"
+                @cancel="cancel">
+                <a
+                  href="#"
+                  class="font-medium text-red-600 dark:text-red-500 hover:underline"
+                  >ลบ</a
+                ></a-popconfirm
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </a-modal>
+
+  <a-modal
+    v-model:visible="list_cash"
+    width="65rem"
+    title="รายการใบเบิกค่าใช้จ่าย">
+    <template #footer>
+      <a-button
+        type="primary"
+        @click="$route.push(`/withdraw/add_estiamte?tour_id=${tour_id}`)"
+        >สร้างใบเสนอราคา</a-button
+      >
+      <a-button type="danger" @click="list_cash = false">ปิด</a-button>
+    </template>
+
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead
+          class="text-xs uppercase bg-green-800 dark:bg-gray-700"
+          style="color: white">
+          <tr>
+            <th scope="col" class="px-6 py-3">ชื่อผู้เบิก</th>
+            <th scope="col" class="px-6 py-3">วันที่เบิก</th>
+            <th scope="col" class="px-6 py-3">วัตถุประสงค์</th>
+            <th scope="col" class="px-6 py-3">ยอดสุทธิ</th>
+            <th scope="col" class="px-6 py-3 text-right">ฟังก์ชั่น</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+            v-for="(item, index) in estimate_ls"
+            :key="index">
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              {{ item.withdrawer_name }}
+            </th>
+            <td class="px-6 py-4">{{ item.date }}</td>
+            <td class="px-6 py-4">{{ item.objective }}</td>
+            <td class="px-6 py-4">
+              {{ formatter.format(item.total_price) }}
+            </td>
+            <td class="px-6 py-4 text-right">
+              <a
+                :href="`/paper/disbursement-paper?tid=${tour_id}&cid=${item.no}`"
+                class="font-medium text-yellow-400 dark:text-yellow-400 hover:underline mr-5"
+                >ดูใบประมาณการเบิกเงินสดย่อย</a
+              >
               <a-popconfirm
                 title="คุณแน่ใจ?"
                 ok-text="ยืนยัน"
@@ -459,6 +538,7 @@ export default {
     const quo_res = await read_all_data(`quotations?tour_id=${this.tour_id}`);
     const bill_res = await read_all_data(`billings?tour_id=${this.tour_id}`);
     const tax_res = await read_all_data(`taxes?tour_id=${this.tour_id}`);
+    this.estimate_ls = await read_all_data(`estimates?tour_id=${this.tour_id}`);
     this.quo_ls = quo_res;
     quo_res.length ? (this.haveQuotation = true) : (this.haveQuotation = false);
     bill_res.length ? (this.haveBilling = true) : (this.haveBilling = false);
@@ -644,10 +724,12 @@ export default {
       dialog: false,
       dialog2: false,
       list_quo: false,
+      list_cash: false,
       loadGenBill: false,
       members_ls: [],
       hotels_ls: [],
       quo_ls: [],
+      estimate_ls: [],
       tour_program: {
         loading: false,
         price_per_unit: 0,
