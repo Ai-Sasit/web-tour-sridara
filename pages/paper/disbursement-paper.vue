@@ -97,46 +97,12 @@
                     รายละเอียดค่าใช้จ่าย
                   </td>
                   <td class="text-center" style="font-size: xx-small">ราคา</td>
-                  <td
-                    colspan="5"
-                    class="text-center"
-                    style="font-size: xx-small"
-                  >
+                  <td class="text-center" style="font-size: xx-small">
                     ค่าใช้จ่าย
                   </td>
                   <td class="text-center" style="font-size: xx-small">จำนวน</td>
                   <td class="text-center" style="font-size: xx-small">
                     ยอดสุทธิ
-                  </td>
-                </tr>
-                <tr style="border-bottom: 1px solid black">
-                  <td class="text-center" style="font-size: xx-small">
-                    &nbsp;
-                  </td>
-                  <td class="text-center" style="font-size: xx-small">
-                    &nbsp;
-                  </td>
-                  <td class="text-center" style="font-size: xx-small">
-                    &nbsp;
-                  </td>
-                  <td class="text-center" style="font-size: xx-small">
-                    เบี้ยเลี้ยง
-                  </td>
-                  <td class="text-center" style="font-size: xx-small">
-                    ค่าที่พัก
-                  </td>
-                  <td class="text-center" style="font-size: xx-small">
-                    ค่ายานพาหนะ
-                  </td>
-                  <td class="text-center" style="font-size: xx-small">
-                    ค่าน้ำมัน
-                  </td>
-                  <td class="text-center" style="font-size: xx-small">อื่นๆ</td>
-                  <td class="text-center" style="font-size: xx-small">
-                    &nbsp;
-                  </td>
-                  <td class="text-center" style="font-size: xx-small">
-                    &nbsp;
                   </td>
                 </tr>
               </thead>
@@ -147,12 +113,10 @@
                     เดินทางไปเชียงใหม่ 3 วัน 2 คืน
                   </td>
                   <td class="text-center" style="font-size: xx-small">29990</td>
-                  <td class="text-center" style="font-size: xx-small">3000</td>
-                  <td class="text-center" style="font-size: xx-small">200</td>
-                  <td class="text-center" style="font-size: xx-small">50</td>
-                  <td class="text-center" style="font-size: xx-small">15</td>
-                  <td class="text-center" style="font-size: xx-small">78</td>
-                  <td class="text-center" style="font-size: xx-small">35000</td>
+                  <td class="text-center" style="font-size: xx-small">
+                    เบี้ยเลี้ยง, ค่าที่พัก, ค่ายานพาหนะ, ค่าน้ำมัน, อื่นๆ
+                  </td>
+                  <td class="text-center" style="font-size: xx-small">20000</td>
                   <td class="text-center" style="font-size: xx-small">20000</td>
                 </tr>
               </tbody>
@@ -309,55 +273,58 @@
     ></v-row
   >
 </template>
-<!-- <script lang="ts">
-  import dayjs from "dayjs";
-  import { defineComponent } from "vue";
-  import buddhistEra from "dayjs/plugin/buddhistEra";
-  import {
-    read_one_data_conditions,
-    ArabicNumberToText,
-  } from "~~/services/configs";
-  export default defineComponent({
-    setup() {
-      dayjs.extend(buddhistEra);
-      return {
-        dayjs,
-        ArabicNumberToText,
-      };
-    },
-    mounted() {
-      const obj = JSON.parse(String(this.$route.query.data));
-      this.ob = obj;
-  
-      this.last_total = obj.tax_invoice.reduce(
-        (a: any, b: any) => Number(a) + Number(b.total),
-        0
-      );
-      console.log(this.last_total);
-      read_one_data_conditions(
-        "quotation_detail",
-        "tour_id",
-        obj.tax_invoice[0].tour_id
-      ).then((res) => {
-        this.onLoad = true;
-        this.quo = res[0].fields;
-      });
-    },
-    data() {
-      return {
-        onLoad: false,
-        quo: {} as any,
-        ob: {} as any,
-        last_total: 0,
-      };
-    },
-    methods: {
-      print() {
-        window.print();
-      },
-    },
-  });
-  </script> -->
+
+//
+<script lang="ts">
+// import dayjs from "dayjs";
+// import { defineComponent } from "vue";
+// import buddhistEra from "dayjs/plugin/buddhistEra";
+// import {
+//   read_one_data_conditions,
+//   ArabicNumberToText,
+// } from "~~/services/configs";
+// export default defineComponent({
+//   setup() {
+//     dayjs.extend(buddhistEra);
+//     return {
+//       dayjs,
+//       ArabicNumberToText,
+//     };
+//   },
+//   mounted() {
+//     const obj = JSON.parse(String(this.$route.query.data));
+//     this.ob = obj;
+
+//     this.last_total = obj.tax_invoice.reduce(
+//       (a: any, b: any) => Number(a) + Number(b.total),
+//       0
+//     );
+//     console.log(this.last_total);
+//     read_one_data_conditions(
+//       "quotation_detail",
+//       "tour_id",
+//       obj.tax_invoice[0].tour_id
+//     ).then((res) => {
+//       this.onLoad = true;
+//       this.quo = res[0].fields;
+//     });
+//   },
+//   data() {
+//     return {
+//       onLoad: false,
+//       quo: {} as any,
+//       ob: {} as any,
+//       last_total: 0,
+//     };
+//   },
+//   methods: {
+//     print() {
+//       window.print();
+//     },
+//   },
+// });
+//
+</script>
 
 <style scope>
 @page {
