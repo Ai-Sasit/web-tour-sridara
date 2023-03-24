@@ -199,19 +199,13 @@
           style="margin-right: 1rem"
           @click="list_cash = true"
           variant="tonal"
-          color="light-blue-accent-4"
+          color="light-blue-darken-4"
           >จัดการใบเบิกค่าใช้จ่าย</v-btn
         >
         <v-btn
           style="margin-right: 1rem"
           variant="tonal"
-          color="light-blue-accent-4"
-          >จัดการใบเคียร์ประมาณการเงินสดย่อย</v-btn
-        >
-        <v-btn
-          style="margin-right: 1rem"
-          variant="tonal"
-          color="light-blue-accent-4"
+          color="light-blue-darken-4"
           @click="list_quo = true"
           >จัดการใบเสนอราคา</v-btn
         >
@@ -383,6 +377,77 @@
     </div>
   </a-modal>
 
+  <a-modal
+    v-model:visible="list_cash"
+    width="65rem"
+    title="รายการใบเบิกค่าใช้จ่าย">
+    <template #footer>
+      <a-button
+        type="primary"
+        @click="$router.push(`/withdraw/add_estimate?tour_id=${tour_id}`)"
+        >สร้างใบเบิกค่าใช้จ่าย</a-button
+      >
+      <a-button type="danger" @click="list_cash = false">ปิด</a-button>
+    </template>
+
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead
+          class="text-xs uppercase bg-green-800 dark:bg-gray-700"
+          style="color: white">
+          <tr>
+            <th scope="col" class="px-6 py-3">ชื่อผู้เบิก</th>
+            <th scope="col" class="px-6 py-3">วันที่เบิก</th>
+            <th scope="col" class="px-6 py-3">วัตถุประสงค์</th>
+            <th scope="col" class="px-6 py-3">ยอดสุทธิ</th>
+            <th scope="col" class="px-6 py-3 text-right">ฟังก์ชั่น</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+            v-for="(item, index) in estimate_ls"
+            :key="index">
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              {{ item.withdrawer_name }}
+            </th>
+            <td class="px-6 py-4">{{ item.date }}</td>
+            <td class="px-6 py-4">{{ item.objective }}</td>
+            <td class="px-6 py-4">
+              {{ formatter.format(item.total_price) }}
+            </td>
+            <td class="px-6 py-4 text-right">
+              <a
+                :href="`/paper/disbursement-paper?tid=${tour_id}&cid=${item.no}`"
+                class="font-medium text-primary-400 dark:text-primary-400 hover:underline mr-5"
+                >ดูใบเบิกเงินสดย่อย</a
+              >
+              <a
+                @click="onOpenCreateClearDialog(item.no)"
+                class="font-medium text-purple-400 dark:text-purple-400 hover:underline mr-5"
+                >ออกใบเคลียร์</a
+              >
+              <a-popconfirm
+                title="คุณแน่ใจ?"
+                ok-text="ยืนยัน"
+                cancel-text="ยกเลิก"
+                @confirm="onDeleteEstimate(item.id)"
+                @cancel="cancel">
+                <a
+                  href="#"
+                  class="font-medium text-red-600 dark:text-red-500 hover:underline"
+                  >ลบ</a
+                ></a-popconfirm
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </a-modal>
+
   <a-modal v-model:visible="dialog" title="ฟอร์มสร้างใบแจ้งหนี้/ใบวางบิล">
     <template #footer>
       <a-button key="back" @click="dialog = false">ยกเลิก</a-button>
@@ -502,6 +567,181 @@
       </v-col>
     </v-row>
   </a-modal>
+
+  <a-modal
+    v-model:visible="create_clear_dialog"
+    width="70rem"
+    title="ออกใบเคียร์ประมาณการเงินสดย่อย">
+    <template #footer>
+      <a-button key="back" @click="create_clear_dialog = false"
+        >ยกเลิก</a-button
+      >
+      <a-button key="submit" type="primary" @click="onCreateClear"
+        >สร้าง</a-button
+      >
+    </template>
+    <v-row>
+      <v-col>
+        <label
+          for="base-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >ผู้ขอเคลียร์</label
+        >
+        <input
+          type="text"
+          id="base-input"
+          v-model="clear.person_clear"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+      </v-col>
+      <v-col>
+        <label
+          for="base-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+          ฝ่าย/แผนก</label
+        >
+        <input
+          type="text"
+          id="base-input"
+          v-model="clear.department"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+      </v-col>
+      <v-col>
+        <label
+          for="base-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >อ้างอิงถึงเลขที่ใบขอเคลียร์</label
+        >
+        <input
+          type="text"
+          id="base-input"
+          v-model="clear.pefer_no_example_pay"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+      </v-col>
+      <v-col>
+        <label
+          for="base-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >รายละเอียดโครงการ/กิจกรรม</label
+        >
+        <input
+          type="text"
+          id="base-input"
+          v-model="clear.tour_desc"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+      </v-col>
+      <v-col>
+        <label
+          for="base-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >ผู้อนุมัติ (แบบอิเล็กทอรนิกส์)
+        </label>
+        <input
+          type="text"
+          id="base-input"
+          v-model="clear.approve_user"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <label
+          for="base-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >ยอดเงินประมาณการ
+        </label>
+        <input
+          type="number"
+          id="base-input"
+          v-model.number="clear.total_predict"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+      </v-col>
+      <v-col>
+        <label
+          for="base-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >ยอดเงินส่งคืน
+        </label>
+        <input
+          type="number"
+          id="base-input"
+          v-model.number="clear.total_return"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+      </v-col>
+      <v-col>
+        <label
+          for="base-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >ยอดเงินเบิกเพิ่ม
+        </label>
+        <input
+          type="number"
+          id="base-input"
+          v-model.number="clear.total_give_me"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+      </v-col>
+      <v-col>
+        <label
+          for="base-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >เลขที่และวันที่ใบเสร็จ
+        </label>
+        <input
+          type="text"
+          id="base-input"
+          v-model="clear.date_no_receipt"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+      </v-col>
+      <v-col>
+        <label
+          for="base-input"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >เลขประจำตัวผู้เสียภาษี
+        </label>
+        <input
+          type="text"
+          id="base-input"
+          v-model="clear.tax_receipt"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+      </v-col>
+    </v-row>
+    <a-divider> รายการที่ขอเบิก </a-divider>
+    <div class="relative overflow-x shadow-md sm:rounded-lg">
+      <table
+        class="w-full text-sm overflow-scroll table-auto text-left text-gray-500 dark:text-gray-400">
+        <thead
+          class="text-xs uppercase bg-green-800 dark:bg-gray-700"
+          style="color: white">
+          <tr>
+            <th scope="col" class="px-6 py-3">รายละเอียดค่าใช้จ่าย</th>
+            <th scope="col" class="px-6 py-3">ประเภทค่าใช้จ่าย</th>
+            <th scope="col" class="px-6 py-3">ราคา</th>
+            <th scope="col" class="px-6 py-3">จำนวน</th>
+            <th scope="col" class="px-6 py-3 text-right">ยอดสุทธิ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+            v-for="(item, index) in est_de_ls"
+            :key="index">
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              {{ item.desc }}
+            </th>
+            <td class="px-6 py-4">{{ item.type }}</td>
+            <td class="px-6 py-4">{{ item.price_per_unit }}</td>
+            <td class="px-6 py-4">
+              {{ item.qty }}
+            </td>
+            <td class="px-6 py-4 text-right">
+              {{ item.total }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </a-modal>
 </template>
 
 <script>
@@ -552,6 +792,13 @@ export default {
     this.tax.tax_date = dayjs(new Date());
   },
   methods: {
+    onOpenCreateClearDialog(item) {
+      this.est_no = item;
+      read_all_data(`estimate_lists?no=${item}`).then((res) => {
+        this.est_de_ls = res;
+      });
+      this.create_clear_dialog = true;
+    },
     onOpenBillDialog(item) {
       this.quo_id = item.id;
       this.customer_id = item.customer_code;
@@ -561,6 +808,12 @@ export default {
       this.quo_id = item.id;
       this.customer_id = item.customer_code;
       this.dialog2 = true;
+    },
+    onDeleteEstimate(id) {
+      delete_data("estimate", id).then((res) => {
+        this.estimate_ls = this.estimate_ls.filter((item) => item.id != id);
+        this.$message.success("ลบข้อมูลเรียบร้อยแล้ว");
+      });
     },
     onDeleteQuotation(id) {
       delete_data("quotation", id).then((res) => {
@@ -710,6 +963,15 @@ export default {
         });
       }
     },
+    onCreateClear() {
+      this.clear.date = dayjs().format("DD/MM/BBBB");
+      this.clear.no = genRanDec(13);
+      this.clear.tour_name = this.tour_data.name;
+      this.clear.desc_ls = this.est_de_ls;
+      this.clear.total = this.est_de_ls.reduce((a, b) => a + b.total, 0);
+      const json = JSON.stringify(this.clear);
+      this.$router.push(`/paper/estimate_clear-paper?data=${json}`);
+    },
   },
   data() {
     return {
@@ -725,11 +987,13 @@ export default {
       dialog2: false,
       list_quo: false,
       list_cash: false,
+      create_clear_dialog: false,
       loadGenBill: false,
       members_ls: [],
       hotels_ls: [],
       quo_ls: [],
       estimate_ls: [],
+      est_de_ls: [],
       tour_program: {
         loading: false,
         price_per_unit: 0,
@@ -746,6 +1010,24 @@ export default {
         tax_date: "",
         tax_pay_date: "",
         tax_branch: "",
+      },
+      est_no: "",
+      clear: {
+        no: "",
+        date: "",
+        person_clear: "",
+        pefer_no_example_pay: "",
+        department: "",
+        tour_name: "",
+        date_no_receipt: "",
+        tax_receipt: "",
+        desc_ls: [],
+        total: 0,
+        total_predict: 0,
+        total_return: 0,
+        total_give_me: 0,
+        tour_desc: "",
+        approve_user: "",
       },
     };
   },
@@ -764,7 +1046,7 @@ export default {
   transition: 0.2s;
 }
 .date-picker {
-  height: 4.7vmin;
+  height: 33.6px;
   background-color: #f9fafb;
   border-radius: 0.4rem;
   width: 100%;
