@@ -1,207 +1,222 @@
 <template>
   <div style="border-radius: 1rem">
-    <v-row>
+    <v-row style="padding: 1rem">
       <v-col class="shadow-card">
-        <h1 v-if="tour_detail"
+        <h1
+          v-if="tour_detail"
           class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
           แบบฟอร์มประมาณการเบิกเงินสดย่อย | {{ tour_detail.name }}
         </h1>
-        <h1 v-else
+        <h1
+          v-else
           class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
-          Loading... แบบฟอร์มประมาณการเบิกเงินสดย่อย
+          Loading...
         </h1>
+        <h5>เลขที่ใบ: {{ no }}</h5>
         <v-row>
           <v-col>
-            <label for="base-input"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ชื่อผู้ขอเบิก</label>
-            <input type="text" id="base-input" v-model="surname_thai"
+            <label
+              for="base-input"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >ชื่อผู้ขอเบิก</label
+            >
+            <input
+              type="text"
+              id="base-input"
+              v-model="withdrawer_name"
               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
           </v-col>
 
           <v-col>
-            <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">แผนก</label>
-            <input type="text" id="small-input" v-model="lastname_thai"
+            <label
+              for="base-input"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >แผนก</label
+            >
+            <input
+              type="text"
+              id="small-input"
+              v-model="withdrawer_positions"
               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
           </v-col>
           <v-col>
-            <label for="base-input"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">วันที่ต้องการใช้เงิน</label>
-            <a-date-picker :locale="locale" v-model:value="dob" class="date-picker" format="DD/MM/YYYY" />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">โครงการ</label>
-            <select style="height: 55%" v-model="gender"
-              class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option value="ทัวร์ 1">ทัวร์ 1</option>
-              <option value="ทัวร์ 2">ทัวร์ 2</option>
-              <option value="ทัวร์ 3">ทัวร์ 3</option>
-            </select>
+            <label
+              for="base-input"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >วันที่ต้องการใช้เงิน</label
+            >
+            <a-date-picker
+              :locale="locale"
+              v-model:value="date_want_pay"
+              class="date-picker"
+              format="DD/MM/YYYY" />
           </v-col>
           <v-col>
-            <label for="base-input"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">วัตถุประสงค์การยืมเงินทดลองจ่าย</label>
-            <input type="text" id="base-input" v-model="nationality"
+            <label
+              for="base-input"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >วัตถุประสงค์การยืมเงินทดลองจ่าย</label
+            >
+            <input
+              type="text"
+              id="base-input"
+              v-model="objective"
               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-          </v-col>
-          <v-col cols="2">
-            <br />
-            <v-btn block variant="tonal" @click="addMember" :loading="addLoading" style="margin-top: 5px"
-              color="light-blue-darken-4">เพิ่มลูกทัวร์</v-btn>
           </v-col>
         </v-row>
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row style="padding: 1rem">
       <v-col class="shadow-card">
-        <h1 v-if="tour_detail"
+        <h1
+          v-if="tour_detail"
           class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
           รายละเอียด
         </h1>
-        <h1 v-else
+        <h1
+          v-else
           class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
           Loading... รายละเอียด
         </h1>
         <v-row>
           <v-col>
-            <label for="base-input"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">รายละเอียดค่าใช้จ่าย</label>
-            <input type="text" id="base-input" v-model="surname_thai"
+            <label
+              for="base-input"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >ราคา</label
+            >
+            <input
+              type="number"
+              id="small-input"
+              v-model.number="esitmate_detail.price_per_unit"
               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
           </v-col>
-
           <v-col>
-            <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ราคา</label>
-            <input type="text" id="small-input" v-model="lastname_thai"
+            <label
+              for="base-input"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >ประเภทค่าใช้จ่าย</label
+            >
+            <select
+              style="height: 55%"
+              v-model="esitmate_detail.type"
+              class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option value="เบี้ยเลี้ยง">เบี้ยเลี้ยง</option>
+              <option value="ค่าที่พัก">ค่าที่พัก</option>
+              <option value="ค่ายานพาหนะ">ค่ายานพาหนะ</option>
+              <option value="ค่าน้ำมัน">ค่าน้ำมัน</option>
+              <option value="อื่นๆ">อื่นๆ</option>
+            </select>
+          </v-col>
+          <v-col>
+            <label
+              for="base-input"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >จำนวน</label
+            >
+            <input
+              type="number"
+              id="base-input"
+              v-model.number="esitmate_detail.qty"
               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
           </v-col>
         </v-row>
         <v-row>
           <v-col>
-            <!-- <label for="base-input"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ค่าใช้จ่าย</label> -->
-            <v-row>
-              <v-col>
-                ค่าเบี่ยเลี้ยง
-              </v-col>
-              <v-col>
-                ค่าที่พัก
-              </v-col>
-              <v-col>
-                ค่ายานพาหะนะ
-              </v-col>
-              <v-col>
-                ค่าน้ำมัน
-              </v-col>
-              <v-col>
-                อื่น ๆ
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-checkbox :model-value="false"></v-checkbox>
-              </v-col>
-              <v-col>
-                <v-checkbox :model-value="false"></v-checkbox>
-              </v-col>
-              <v-col>
-                <v-checkbox :model-value="false"></v-checkbox>
-              </v-col>
-              <v-col>
-                <v-checkbox :model-value="false"></v-checkbox>
-              </v-col>
-              <v-col>
-                <v-checkbox :model-value="false"></v-checkbox>
-              </v-col>
-            </v-row>
-          </v-col>
-          <v-col>
-            <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">จำนวน</label>
-            <input type="text" id="base-input" v-model="nationality"
-              class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-          </v-col>
-          <v-col>
-            <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ยอดสุทธิ</label>
-            <input type="text" id="base-input" v-model="nationality"
+            <label
+              for="base-input"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >รายละเอียดค่าใช้จ่าย</label
+            >
+            <textarea
+              type="text"
+              style="height: 33.6px"
+              id="base-input"
+              v-model="esitmate_detail.desc"
               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
           </v-col>
           <v-col cols="2">
             <br />
-            <v-btn block variant="tonal" @click="addMember" :loading="addLoading" style="margin-top: 5px"
-              color="light-blue-darken-4">เพิ่มลูกทัวร์</v-btn>
+            <v-btn
+              block
+              variant="tonal"
+              @click="addEstimate"
+              :loading="addLoading"
+              style="margin-top: 5px"
+              color="light-blue-darken-4"
+              >เพิ่มรายการ</v-btn
+            >
           </v-col>
         </v-row>
         <br />
-        <div class="relative overflow-x-auto" style="
-                            border-radius: 0.5rem;
-                            box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
-                              rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-                          ">
+        <div
+          class="relative overflow-x-auto"
+          style="
+            border-radius: 0.5rem;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+              rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+          ">
           <section class="bg-gray-50 dark:bg-gray-900">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400"
+            <table
+              class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400"
                 style="background-color: #81c784">
                 <tr>
                   <th scope="col" class="px-6 py-3">ลำดับ</th>
                   <th scope="col" class="px-6 py-3">รายละเอียดค่าใช้จ่าย</th>
                   <th scope="col" class="px-6 py-3">ราคา</th>
-                  <th scope="col" class="px-6 py-3">ค่าใช้จ่าย
-                <tr>
-                  <th scope="col" class="px-2 py-3">เบี่ยเลี้ยง</th>
-                  <th scope="col" class="px-2 py-3">ค่าที่พัก</th>
-                  <th scope="col" class="px-2 py-3">ค่ำยานพาหะนะ</th>
-                  <th scope="col" class="px-2 py-3">ค่าน้ำมัน</th>
-                  <th scope="col" class="px-2 py-3">อื่น ๆ</th>
-                </tr>
-                </th>
-                <th scope="col" class="px-6 py-3">จำนวน</th>
-                <th scope="col" class="px-6 py-3">ยอดสุทธิ</th>
-                <th scope="col" class="px-6 py-3">จัดการ</th>
+                  <th scope="col" class="px-6 py-3">ประเถทค่าใช้จ่าย</th>
+                  <th scope="col" class="px-6 py-3">จำนวน</th>
+                  <th scope="col" class="px-6 py-3">ยอดสุทธิ</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-if="!members_ls.length">
+                <tr v-if="!esitmate_ls.length">
                   <td class="px-6 py-4" colspan="12" style="text-align: center">
                     ไม่มีข้อมูล
                   </td>
                 </tr>
-                <tr class="table-row-hover" v-for="(item, index) in members_ls"
-                  @click="deleteAlert(item.id, item.thai_name)" :key="index">
+                <tr
+                  class="table-row-hover"
+                  v-for="(item, index) in esitmate_ls"
+                  @click="deleteAlert(item.id, item.desc)"
+                  :key="index">
                   <td class="px-6 py-4">
-                    {{ index + 1 }}</td>
-                  <td class="px-6 py-4">
-                    {{ item.thai_name }}
+                    {{ index + 1 }}
                   </td>
                   <td class="px-6 py-4">
-                    {{ item.national_id }}
+                    {{ item.desc }}
                   </td>
                   <td class="px-6 py-4">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400"
-                        style="background-color: #81c784">
-                        <tr>
-                          <th scope="col" class="px-2 py-3">เบี่ยเลี้ยง</th>
-                          <th scope="col" class="px-2 py-3">ค่าที่พัก</th>
-                          <th scope="col" class="px-2 py-3">ค่ำยานพาหะนะ</th>
-                          <th scope="col" class="px-2 py-3">ค่าน้ำมัน</th>
-                          <th scope="col" class="px-2 py-3">อื่น ๆ</th>
-                        </tr>
-                      </thead>
-                    </table>
+                    {{ item.price_per_unit }}
                   </td>
                   <td class="px-6 py-4">
-                    {{ item.passport_no }}
+                    {{ item.type }}
                   </td>
                   <td class="px-6 py-4">
-                    {{ item.passport_issue }}
+                    {{ item.qty }}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{ item.total }}
                   </td>
                 </tr>
               </tbody>
             </table>
           </section>
         </div>
+        <br />
+        <v-row justify="end">
+          <v-col style="display: flex; justify-content: end">
+            <v-btn
+              variant="tonal"
+              color="teal-darken-3"
+              @click="addEstimateHeader"
+              >สร้างใบประมาณการเบิกเงินสดย่อย</v-btn
+            ></v-col
+          >
+        </v-row>
       </v-col>
     </v-row>
   </div>
@@ -214,6 +229,7 @@ import {
   create_data,
   read_one_data,
   delete_data,
+  genRanDec,
 } from "~~/services/pyapi";
 import { defineComponent } from "vue";
 import dayjs from "dayjs";
@@ -223,32 +239,23 @@ import locale from "ant-design-vue/es/date-picker/locale/th_TH";
 export default defineComponent({
   data() {
     return {
-      surname_thai: "",
-      lastname_thai: "",
-      surname_eng: "",
-      lastname_eng: "",
-      nationality: "",
-      gender: "",
-      id_card: "",
-      bed_type: "",
-      telephone_number: "",
-      passport: "",
-      stamp_number: "",
-      address: "",
-      dob: "",
-      out: "",
-      in: "",
-      d_range: [],
-      members_ls: [],
+      tour_id: "",
       tour_detail: "",
       addLoading: false,
+      no: "",
+      withdrawer_name: "",
+      withdrawer_positions: "",
+      date_want_pay: "",
+      objective: "",
+      esitmate_ls: [],
+      esitmate_detail: {
+        desc: "",
+        type: "",
+        qty: 0,
+        price_per_unit: 0,
+        total: 0,
+      },
     };
-  },
-  watch: {
-    d_range(newValue) {
-      this.in = newValue[0];
-      this.out = newValue[1];
-    },
   },
   setup() {
     return {
@@ -256,14 +263,14 @@ export default defineComponent({
     };
   },
   mounted() {
-    read_one_data("tour", String(this.$route.params.tourId)).then((result) => {
+    this.tour_id = String(this.$route.query.tour_id);
+    read_one_data("tour", this.tour_id).then((result) => {
       this.tour_detail = result;
     });
-    read_all_data(`members?tour_id=${String(this.$route.params.tourId)}`).then(
-      (result) => {
-        this.members_ls = result;
-      }
-    );
+    this.no = genRanDec(13);
+    read_all_data(`estimate_lists?no=${this.no}`).then((result) => {
+      this.esitmate_ls = result;
+    });
   },
   methods: {
     deleteAlert(id, name) {
@@ -287,90 +294,78 @@ export default defineComponent({
         },
       });
     },
-    validateMember() {
-      if (this.surname_thai == "") {
-        this.$message.error("กรุณากรอกชื่อ (ไทย)");
-        return false;
-      } else if (this.lastname_thai == "") {
-        this.$message.error("กรุณากรอกนามสกุล (ไทย)");
-        return false;
-      } else if (this.surname_eng == "") {
-        this.$message.error("กรุณากรอกชื่อ (อังกฤษ)");
-        return false;
-      } else if (this.lastname_eng == "") {
-        this.$message.error("กรุณากรอกนามสกุล (อังกฤษ)");
-        return false;
-      } else if (this.id_card == "") {
-        this.$message.error("กรุณากรอกเลขบัตรประชาชน");
-        return false;
-      } else if (this.bed_type == "") {
-        this.$message.error("กรุณาเลือกประเภทเตียง");
-        return false;
-      } else if (this.passport == "") {
-        this.$message.error("กรุณากรอกเลขที่หนังสือเดินทาง");
-        return false;
-      } else if (this.in == "") {
-        this.$message.error("กรุณาเลือกวันเข้าพัก");
-        return false;
-      } else if (this.out == "") {
-        this.$message.error("กรุณาเลือกวันออกพัก");
-        return false;
-      } else if (this.dob == "") {
-        this.$message.error("กรุณาเลือกวันเกิด");
-        return false;
-      } else if (this.nationality == "") {
-        this.$message.error("กรุณากรอกสัญชาติ");
-        return false;
-      } else if (this.gender == "") {
-        this.$message.error("กรุณาเลือกเพศ");
-        return false;
-      } else if (this.address == "") {
-        this.$message.error("กรุณากรอกที่อยู่");
-        return false;
-      } else if (this.stamp_number == "") {
-        this.$message.error("กรุณากรอกเลขที่ใบอนุญาต");
-        return false;
-      } else if (this.telephone_number == "") {
-        this.$message.error("กรุณากรอกเบอร์โทรศัพท์");
-        return false;
-      } else if (this.address == "") {
-        this.$message.error("กรุณากรอกที่อยู่");
+    validateEstiamte() {
+      if (
+        this.esitmate_detail.desc == "" ||
+        this.esitmate_detail.type == "" ||
+        this.esitmate_detail.qty <= 0 ||
+        this.esitmate_detail.price_per_unit <= 0
+      ) {
+        this.$message.error("กรุณากรอกข้อมูลให้ครบถ้วน");
         return false;
       } else {
         return true;
       }
     },
-    addMember() {
-      const paylaod = {
-        tour_id: String(this.$route.params.tourId),
-        thai_name: `${this.surname_thai} ${this.lastname_thai}`,
-        eng_name: `${this.surname_eng} ${this.lastname_eng}`,
-        national_id: this.id_card,
-        bed_type: this.bed_type,
-        passport_no: this.passport,
-        passport_issue: dayjs(this.in).format("DD/MM/BBBB"),
-        passport_exp: dayjs(this.out).format("DD/MM/BBBB"),
-        gender: this.gender,
-        nationality: this.nationality,
-        date_of_birth: dayjs(this.dob).format("DD/MM/BBBB"),
-        address: this.address,
-        stamp_no: this.stamp_number,
-        telephone: this.telephone_number,
-      };
-      if (this.validateMember()) {
+    validateEstiamteHeader() {
+      if (
+        this.no == "" ||
+        this.withdrawer_name == "" ||
+        this.withdrawer_positions == "" ||
+        this.date_want_pay == "" ||
+        this.objective == ""
+      ) {
+        this.$message.error("กรุณากรอกข้อมูลให้ครบถ้วน");
+        return false;
+      } else {
+        return true;
+      }
+    },
+    sumTotalPrice() {
+      let total = 0;
+      this.esitmate_ls.forEach((item) => {
+        total += item.total;
+      });
+      return total;
+    },
+    addEstimateHeader() {
+      if (this.validateEstiamteHeader()) {
+        let data = {
+          tour_id: this.tour_id,
+          no: this.no,
+          date: dayjs(new Date()).format("YYYY-MM-DD"),
+          withdrawer_name: this.withdrawer_name,
+          withdrawer_position: this.withdrawer_positions,
+          date_want_pay: this.date_want_pay,
+          objective: this.objective,
+          tour_name: this.tour_detail.name,
+          total_price: this.sumTotalPrice(),
+          approve_name: "",
+        };
+        create_data("estimate", data).then(() => {
+          this.$message.success("บันทึกข้อมูลสำเร็จ");
+        });
+      }
+    },
+    addEstimate() {
+      if (this.validateEstiamte()) {
         this.addLoading = true;
-        create_data("member", paylaod)
-          .then(() => {
-            read_all_data(
-              `members?tour_id=${String(this.$route.params.tourId)}`
-            ).then((result) => {
-              this.addLoading = false;
-              this.members_ls = result;
-            });
-          })
-          .catch((err) => {
-            this.$message.error(err.message);
+        this.esitmate_detail.total =
+          this.esitmate_detail.qty * this.esitmate_detail.price_per_unit;
+        this.esitmate_detail.estimate_id = this.no;
+        create_data("estimate_list", this.esitmate_detail).then(() => {
+          read_all_data(`estimate_lists?no=${this.no}`).then((result) => {
+            this.esitmate_ls = result;
+            this.addLoading = false;
           });
+          this.esitmate_detail = {
+            desc: "",
+            type: "",
+            qty: 0,
+            price_per_unit: 0,
+            total: 0,
+          };
+        });
       }
     },
   },
@@ -400,5 +395,11 @@ export default defineComponent({
 .table-row-hover:hover {
   background-color: rgb(236, 236, 236);
   transition: 0.2s;
+}
+.date-picker {
+  height: 33.6px;
+  background-color: #f9fafb;
+  border-radius: 0.4rem;
+  width: 100%;
 }
 </style>
